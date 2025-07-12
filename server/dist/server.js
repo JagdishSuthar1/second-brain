@@ -9,8 +9,6 @@ const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const auth_routes_1 = __importDefault(require("./routes/auth-routes/"));
-const config_1 = require("./config");
-const config_2 = require("./config");
 const index_1 = __importDefault(require("./routes/dashboard-routes/index"));
 const index_2 = __importDefault(require("./routes/search-routes/index"));
 const chat_routes_1 = __importDefault(require("./routes/chat-routes"));
@@ -21,7 +19,7 @@ const share_routes_1 = __importDefault(require("./routes/share-routes"));
 // we have to create the app where we query the content and
 // the query + relevant docs are send to the gpt and then gpt 
 // give the explaination
-mongoose_1.default.connect(config_1.MONGODB_URL).then(() => console.log("Database is Connected")).catch((err) => console.log("Database is not Connected"));
+mongoose_1.default.connect(process.env.MONGODB_URL).then(() => console.log("Database is Connected")).catch((err) => console.log("Database is not Connected"));
 dotenv_1.default.config();
 app.use((0, cors_1.default)({
     origin: "*",
@@ -44,7 +42,7 @@ const errorHandler = (err, req, res, next) => {
     });
 };
 app.use(errorHandler);
-const server = app.listen(config_2.PORT, () => console.log("Server is running on the port " + process.env.PORT));
+const server = app.listen(process.env.PORT, () => console.log("Server is running on the port " + process.env.PORT));
 const io = new socket_io_1.Server(server, {
     cors: {
         origin: "*"

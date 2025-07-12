@@ -4,8 +4,6 @@ import cors from "cors";
 import mongoose  from "mongoose";
 import env from "dotenv";
 import AuthRouter from "./routes/auth-routes/"
-import { MONGODB_URL } from "./config";
-import { PORT } from "./config";
 import ContentRouter from "./routes/dashboard-routes/index";
 import SearchRouter from "./routes/search-routes/index";
 import ChatRouter from "./routes/chat-routes";
@@ -17,7 +15,7 @@ import ShareBrainRouter from "./routes/share-routes";
 // the query + relevant docs are send to the gpt and then gpt 
 // give the explaination
 
-mongoose.connect(MONGODB_URL).then(() => console.log("Database is Connected")).catch((err) => console.log("Database is not Connected"));
+mongoose.connect(process.env.MONGODB_URL!).then(() => console.log("Database is Connected")).catch((err) => console.log("Database is not Connected"));
 env.config();
 app.use(cors(
     {
@@ -50,7 +48,7 @@ const errorHandler : ErrorRequestHandler  = (err : Error , req : Request , res :
 app.use(errorHandler)
 
 
-const server = app.listen(PORT, () => console.log("Server is running on the port " + process.env.PORT));
+const server = app.listen(process.env.PORT, () => console.log("Server is running on the port " + process.env.PORT));
 
 const io = new Server(server , {
     cors : {

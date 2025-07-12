@@ -15,12 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImageAndVideoUploader = ImageAndVideoUploader;
 exports.DeleteVideoAndImage = DeleteVideoAndImage;
 const cloudinary_1 = require("cloudinary");
-const config_1 = require("../config");
 const fs_1 = __importDefault(require("fs"));
 cloudinary_1.v2.config({
-    cloud_name: config_1.CLOUDINARY_NAME,
-    api_key: config_1.CLOUDINARY_API,
-    api_secret: config_1.CLOUDINARY_API_SECRET
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API,
+    api_secret: process.env.CLOUDINARY_API_SECRET
 });
 function ImageAndVideoUploader(file_path) {
     return __awaiter(this, void 0, void 0, function* () {

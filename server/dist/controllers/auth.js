@@ -17,7 +17,6 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const user_1 = __importDefault(require("../db/user"));
 const auth_types_1 = require("../types/auth.types");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const config_1 = require("../config");
 const SignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const signupData = req.body;
     if (signupData) {
@@ -72,7 +71,7 @@ const SignIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                             id: user._id,
                             password: user.password,
                             email: user.email
-                        }, config_1.JWT_SECRET);
+                        }, process.env.JWT_SECRET);
                         res.status(200).json({
                             success: true,
                             message: "SignIn Successfully",
