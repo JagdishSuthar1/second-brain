@@ -1,11 +1,10 @@
 import {v2 as cloudinary} from "cloudinary"
-import { CLOUDINARY_API, CLOUDINARY_API_SECRET, CLOUDINARY_NAME } from "../config"
 import fs from "fs"
 
 cloudinary.config({
-    cloud_name : CLOUDINARY_NAME,
-    api_key : CLOUDINARY_API,
-    api_secret :CLOUDINARY_API_SECRET 
+    cloud_name : process.env.CLOUDINARY_NAME,
+    api_key : process.env.CLOUDINARY_API,
+    api_secret :process.env.CLOUDINARY_API_SECRET 
 })
 
 async function ImageAndVideoUploader(file_path : string) {

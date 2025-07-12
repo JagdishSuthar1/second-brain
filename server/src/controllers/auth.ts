@@ -4,7 +4,6 @@ import userModel from "../db/user"
 import { Request, RequestHandler, Response } from "express";
 import { SignUpInput, signupSchema, AuthResponse, SignInInput, signInSchema, TokenResponse } from "../types/auth.types"
 import jwt from "jsonwebtoken"
-import { JWT_SECRET } from "../config";
 
 
 export const SignUp: RequestHandler<{}, AuthResponse, SignUpInput> = async (req, res) => {
@@ -75,7 +74,7 @@ export const SignIn: RequestHandler<{}, TokenResponse, SignInInput> = async (req
                             id: user._id,
                             password: user.password,
                             email: user.email
-                        }, JWT_SECRET)
+                        }, process.env.JWT_SECRET!)
 
                         res.status(200).json({
                             success: true,
