@@ -1,1 +1,56 @@
+# Node modules
 node_modules/
+
+# Build output
+dist/
+build/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.*.local
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Testing coverage
+coverage/
+
+# Misc
+*.tgz
+*.log
+
+# Local development tools
+.next/
+out/
+.cache/
+.tmp/
+.eslintcache
+
+# Mac and Linux hidden files
+*.swp
+*.lock-wscript
+
+# Windows thumbnail cache
+ehthumbs.db
+Desktop.ini
+
+# Optional npm cache directory
+.npm/
+
+# React Native
+.expo/
