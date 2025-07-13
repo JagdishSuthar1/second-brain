@@ -54,3 +54,4 @@ Desktop.ini
 
 # React Native
 .expo/
+node_modules/
