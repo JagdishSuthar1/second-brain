@@ -2,7 +2,6 @@ import express, { NextFunction , Request, Response, ErrorRequestHandler} from "e
 const app = express();
 import cors from "cors";
 import mongoose  from "mongoose";
-import env from "dotenv";
 import AuthRouter from "./routes/auth-routes/"
 import ContentRouter from "./routes/dashboard-routes/index";
 import SearchRouter from "./routes/search-routes/index";
@@ -14,6 +13,8 @@ import ShareBrainRouter from "./routes/share-routes";
 // we have to create the app where we query the content and
 // the query + relevant docs are send to the gpt and then gpt 
 // give the explaination
+import env from "dotenv";
+env.config();
 
 mongoose.connect(process.env.MONGODB_URL!).then(() => console.log("Database is Connected")).catch((err) => console.log("Database is not Connected"));
 env.config();

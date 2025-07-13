@@ -3,6 +3,7 @@ import contentModel from "../db/content";
 import tagsModel from "../db/tags";
 import createEmbeddings from "../ollamaModel/embeddings";
 
+
 type ContentTypeResponse = {
     success: boolean,
     message: string,

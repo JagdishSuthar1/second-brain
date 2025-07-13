@@ -4,7 +4,8 @@ import userModel from "../db/user"
 import { Request, RequestHandler, Response } from "express";
 import { SignUpInput, signupSchema, AuthResponse, SignInInput, signInSchema, TokenResponse } from "../types/auth.types"
 import jwt from "jsonwebtoken"
-
+import env from "dotenv";
+env.config();
 
 export const SignUp: RequestHandler<{}, AuthResponse, SignUpInput> = async (req, res) => {
 
