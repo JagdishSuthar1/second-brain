@@ -23,7 +23,8 @@ function App() {
     <Route path='/auth' element ={<ProtectedRoutes authenticated={auth.authenticated} element={<AuthPage/>}/>}/>
     {/* <Route path='/home' element ={<ProtectedRoutes authenticated={auth.authenticated} element={<LandingPage/>}/>}>
     //  */}
-      <Route path='/home'  element={<LandingPage/>}>
+
+      <Route path='/'  element={<LandingPage/>}>
 
     <Route index element={<MainPage/>}/>
     </Route>
