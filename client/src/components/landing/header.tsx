@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "@/context/auth-context";
 import { MenuIcon } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
