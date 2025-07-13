@@ -1,4 +1,4 @@
-import { Dialog, DialogClose, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import {  MoveRight, PlusIcon } from "lucide-react";
 import { DialogContent, DialogOverlay} from "@/components/ui/dialog";

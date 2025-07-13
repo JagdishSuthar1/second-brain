@@ -1,15 +1,15 @@
-import { Card } from "@/components/ui/card";
+// import { Card } from "@/components/ui/card";
 
 
 
 
 
-export default function AllNotesPage() {
+// export default function AllNotesPage() {
 
-    return (
+//     return (
         
-        <Card>
+//         <Card>
             
-        </Card>
-    )
-}
+//         </Card>
+//     )
+// }

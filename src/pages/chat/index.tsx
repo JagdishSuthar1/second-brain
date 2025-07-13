@@ -8,7 +8,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AuthContext } from "@/context/auth-context";
 import { ChatContext } from "@/context/chat-context";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {  LeafyGreenIcon, RedoDotIcon, SendIcon } from "lucide-react";
+import { SendIcon } from "lucide-react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client"
 import Lottie from "lottie-react"
@@ -22,7 +22,7 @@ export default function ChatPage() {
     const { fetchGroupsAgain, setFetchFriendsAgain,
         setFetchGroupsAgain, fetchfriendsAgain, mychats,
         setMyChats, groupChats, setGroupChats,
-        currentTabforChat,  setMainSize,
+         setMainSize,
         userChatSelected, groupChatSelected, socket,
         setSocket,
         selectedUserMessages, setSelectedUserMessages,
@@ -34,8 +34,8 @@ export default function ChatPage() {
     const messageRef = useRef<HTMLInputElement>(null)
     // const [isTyping, setIsTyping] = useState(true);
     // const [loading, setLoading] = useState<boolean>(true);
-    const [connected, setConnected] = useState<string>("");
-    const [disconnect, setDisconnected] = useState<string>("");
+    // const [connected, setConnected] = useState<string>("");
+    // const [disconnect, setDisconnected] = useState<string>("");
     const [connectedUsers, setConnectedUsers] = useState<string[]>([])
 
     async function handleUserChats(userId: string) {
@@ -125,39 +125,39 @@ export default function ChatPage() {
 
 
 
-    // useEffect(() => {
-    //     // console.log(auth)
-    //     if (auth.user != null) {
-    //         const socketSmaple = io(ENDPOINT);
-    //         setSocket(socketSmaple);
-    //         socketSmaple.on("connect", () => {
-    //             console.log("connected");
-    //         })
+    useEffect(() => {
+        // console.log(auth)
+        if (auth.user != null) {
+            const socketSmaple = io(ENDPOINT);
+            setSocket(socketSmaple);
+            socketSmaple.on("connect", () => {
+                console.log("connected");
+            })
 
-    //         socketSmaple.emit("setup", auth.user.userId);
-    //         socketSmaple.on("user-connected", (userId) => {
-    //             console.log("user connected", userId)
-    //             setConnected(userId)
-    //         });
+            socketSmaple.emit("setup", auth.user.userId);
+            socketSmaple.on("user-connected", (userId) => {
+                console.log("user connected", userId)
+                // setConnected(userId)
+            });
 
-    //         socketSmaple.on("available-users", (data) => {
-    //             console.log("connected-users", data)
-    //             setConnectedUsers(data)
-    //         })
+            socketSmaple.on("available-users", (data) => {
+                console.log("connected-users", data)
+                setConnectedUsers(data)
+            })
 
-    //         socketSmaple.on("user-disconnected", (userId) => {
-    //             console.log("user disconnected", userId)
-    //             setDisconnected(userId);
-    //         });
-    //     }
+            socketSmaple.on("user-disconnected", (userId) => {
+                console.log("user disconnected", userId)
+                // setDisconnected(userId);
+            });
+        }
 
-    //     return () => {
-    //         // socket?.emit("disconnect" , auth.user?.userId);
-    //         console.log("socket is disconnected");
-    //         socket?.disconnect();
-    //     }
+        return () => {
+            // socket?.emit("disconnect" , auth.user?.userId);
+            console.log("socket is disconnected");
+            socket?.disconnect();
+        }
 
-    // }, [auth.user])
+    }, [auth.user])
 
 
 
@@ -234,7 +234,8 @@ export default function ChatPage() {
         <div className="fixed w-vw">
             <Header />
             <div className="w-screen h-screen">
-                <SidebarProvider className="flex flex-row h-full" style={{ "--sidebar-width": "25rem" }}>
+                <SidebarProvider className="flex flex-row h-full"   style={{ "--sidebar-width": "25rem" } as React.CSSProperties}
+>
                     <SlideBarForChat />
 
                     <main className={`h-[90vh] w-full`}>

@@ -1,11 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
-import { use, useContext, useEffect, useRef, useState } from "react";
+import {  useContext, useRef, useState } from "react";
 import { ChatContext } from "@/context/chat-context";
 import { GroupIcon, PlusIcon, SearchIcon, UserIcon } from "lucide-react";
 import { Input } from "../ui/input";
 import { axiosInstance } from "@/axiosInstance";
-import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Button } from "../ui/button";
 import { Label } from "@radix-ui/react-label";
 import { ScrollBar, ScrollArea } from "../ui/scroll-area";
@@ -16,8 +16,8 @@ import { AuthContext } from "@/context/auth-context";
 
 
 export default function SlideBarForChat() {
-    const { currentTabforChat, mychats, groupChats, setFetchFriendsAgain, setFetchGroupsAgain, userChatSelected, groupChatSelected, setGroupChatSelected, setUserChatSelected,
-        selectedUserMessages, setSelectedUserMessages,selectedGroupMessages, setSelectedGroupMessages, socket } = useContext(ChatContext)!;
+    const { currentTabforChat, mychats, groupChats, setFetchFriendsAgain, setFetchGroupsAgain, setGroupChatSelected, setUserChatSelected,
+         setSelectedUserMessages, setSelectedGroupMessages, socket } = useContext(ChatContext)!;
     const searchUserRef = useRef<HTMLInputElement>(null)
     const [openSearch, setOpenSearch] = useState<boolean>(false);
     const [openAddGroup, setOpenAddGroup] = useState<boolean>(false);

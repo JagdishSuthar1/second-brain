@@ -9,7 +9,6 @@ import DashboardPage from './pages/dashboard'
 import MainPage from './components/landing/mainpage'
 import ContentDetail from './pages/detail'
 import ChatPage from './pages/chat'
-import SharePage from './pages/share'
 import ShareAllContent from './pages/share'
 import ShareSingleContent from './pages/share/singleContent'
 // Includes all font weights

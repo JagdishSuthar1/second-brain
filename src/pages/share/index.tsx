@@ -1,5 +1,4 @@
 import { axiosInstance } from "@/axiosInstance";
-import AddContentDialog from "@/components/dashboard/addcontentdialog";
 import SidebarApp from "@/components/dashboard/slider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -7,10 +6,10 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AuthContext } from "@/context/auth-context";
 import { DashboardContext } from "@/context/dashboard-context";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { DeleteIcon, FileIcon, ImageIcon, LinkIcon, PlusIcon, SearchIcon, Share2Icon, TwitterIcon, VideoIcon } from "lucide-react";
-import { useContext, useEffect, useReducer, useRef, useState } from "react";
+import {  FileIcon, ImageIcon, LinkIcon, PlusIcon,  TwitterIcon, VideoIcon } from "lucide-react";
+import { useContext, useEffect } from "react";
 import { toast, Toaster } from "sonner";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate} from "react-router-dom";
 import { SearchQuery } from "@/components/dashboard/search";
 import Lottie from "lottie-react";
 // import type {DashboardProps} from "@/types/auth.types"
@@ -18,16 +17,16 @@ import Lottie from "lottie-react";
 import loader from "@/animations/loader.json"
 import ReactPlayerVideo from "@/components/reactPlayer";
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
-import type { ContentDetailType, ShareDashboardDataType } from "@/types/dashboard.types";
+import type { ContentDetailType } from "@/types/dashboard.types";
 import { Label } from "@/components/ui/label";
 
 
 export default function ShareAllContent() {
     const { auth } = useContext(AuthContext)!;
-    const { shareFilter, setShareFilter, fetchingContentForDashboard, setFetchingContentForDashboard, setShareDashboardContent, shareDashboardContent } = useContext(DashboardContext)!;
+    const { shareFilter, setShareFilter,  setFetchingContentForDashboard, setShareDashboardContent, shareDashboardContent } = useContext(DashboardContext)!;
     const location = useLocation();
-    const [sidebarOpen, setSiderBarOpen] = useState(true);
-    const locationRef = useRef<object>(location)
+    // const [sidebarOpen, setSiderBarOpen] = useState(true);
+    // const locationRef = useRef<object>(location)
 
     async function fetchingShareContent(userId: string) {
 
@@ -194,7 +193,7 @@ export default function ShareAllContent() {
             <Toaster />
             <main className={`p-3 bg-[#191919] w-full h-screen flex flex-col gap-2 r-0`}>
                 <div className={`flex flex-row w-full r-0 justify-between`}>
-                    <SidebarTrigger className="hover:cursor-pointer bg-amber-400 " onClick={() => setSiderBarOpen(e => !e)} />
+                    <SidebarTrigger className="hover:cursor-pointer bg-amber-400 "  />
                     <div className="flex flex-row gap-7 w-f">
 
                         <Link to={"/dashboard"} className="mt-[5.3px]"><span className="text-amber-50  text-[18px]  mt-2">Go To My Dashboard</span></Link>

@@ -1,5 +1,5 @@
 import { CommandItem, CommandInput, CommandDialog, CommandEmpty, CommandGroup, CommandList } from "../ui/command";
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 import { DashboardContext } from "@/context/dashboard-context";
 import { axiosInstance } from "@/axiosInstance";
 import { toast } from "sonner";
@@ -7,7 +7,6 @@ import { BotIcon, FileIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../ui/input";
-import { DialogTitle } from "@radix-ui/react-dialog";
 
 export function SearchQuery() {
     const { searchOpen, setSearchOpen, suggestedContent, setSuggestedContent, setAiSummary } = useContext(DashboardContext)!;

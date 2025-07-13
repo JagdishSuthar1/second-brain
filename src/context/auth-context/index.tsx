@@ -8,7 +8,7 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 export default function AuthProvider({ children }: childrenProps) {
 
     useEffect(() => {
-        let token = sessionStorage.getItem("accessToken");
+        const token = sessionStorage.getItem("accessToken");
         const user = sessionStorage.getItem("user");
         if (user != null && token != null) {
             const userInfo = JSON.parse(user);

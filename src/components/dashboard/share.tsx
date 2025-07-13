@@ -1,17 +1,14 @@
-import { Dialog, DialogHeader, DialogTrigger , DialogContent, DialogOverlay, DialogTitle} from "@/components/ui/dialog";
+import { Dialog, DialogTrigger , DialogContent, DialogOverlay, DialogTitle} from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { LinkIcon, Share2Icon } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import { Textarea } from "../ui/textarea";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/context/auth-context";
 import { toast } from "sonner";
-import bcrypt from "bcryptjs"
 import { Input } from "../ui/input";
 import CryptoJS from 'crypto-js'
 
 const secretKey = "Jagdish-Suthar";
-let randomVector;
 
 export default function ShareContent() {
     const [linkGenerated , setLinkGenerated] = useState<boolean>(false);

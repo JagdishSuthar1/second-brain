@@ -7,8 +7,8 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AuthContext } from "@/context/auth-context";
 import { DashboardContext } from "@/context/dashboard-context";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { DeleteIcon, EyeClosedIcon, EyeIcon, FileIcon, ImageIcon, LinkIcon, SearchIcon, Share2Icon, TwitterIcon, VideoIcon } from "lucide-react";
-import { useContext, useEffect, useRef, useState } from "react";
+import { DeleteIcon,  EyeIcon, FileIcon, ImageIcon, LinkIcon, SearchIcon,  TwitterIcon,  VideoIcon } from "lucide-react";
+import { useContext, useEffect, useRef } from "react";
 import { toast, Toaster } from "sonner";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SearchQuery } from "@/components/dashboard/search";
@@ -20,20 +20,18 @@ import ReactPlayerVideo from "@/components/reactPlayer";
 // import { Skeleton } from "@/components/ui/skeleton";
 import ShareContent from "@/components/dashboard/share";
 import { Label } from "@/components/ui/label";
-import ShareContentSinlge from "@/components/dashboard/shareSingle";
-import ShareContentSingle from "@/components/dashboard/shareSingle";
 import CryptoJS from 'crypto-js'
 import ShareContentSingleDialog from "@/components/dashboard/shareSingle";
 const secretKey = "Jagdish-Suthar";
 
 export default function DashboardPage() {
     const { auth } = useContext(AuthContext)!;
-    const { dashboardData, setDashboardData, filter, setFilter, searchOpen, setSearchOpen,
-        fetchingContentForDashboard, setFetchingContentForDashboard,
-        setShareContentData
+    const { dashboardData, setDashboardData, filter, setFilter,  setSearchOpen,
+        fetchingContentForDashboard, setFetchingContentForDashboard
+        
     } = useContext(DashboardContext)!;
     const location = useLocation();
-    const [sidebarOpen, setSiderBarOpen] = useState(true);
+    // const [sidebarOpen, setSiderBarOpen] = useState(true);
     const locationRef = useRef<object>(location)
 
     async function fetchingContent(userId: string) {
@@ -174,7 +172,7 @@ export default function DashboardPage() {
             <Toaster />
             <main className={`p-3 bg-[#191919] w-full h-screen flex flex-col gap-2 r-0`}>
                 <div className={`flex flex-row w-full r-0 justify-between`}>
-                    <SidebarTrigger className="hover:cursor-pointer bg-amber-400 " onClick={() => setSiderBarOpen(e => !e)} />
+                    <SidebarTrigger className="hover:cursor-pointer bg-amber-400 "  />
                     <div className="flex flex-row gap-7 w-f">
 
                         <Button className="text-white  hover: cursor-pointer " onClick={() => setSearchOpen(open => !open)}><SearchIcon /></Button>
@@ -257,7 +255,7 @@ export default function DashboardPage() {
                                                     <div className="h-10 mt-2">
                                                         <Label className="pl-1 h-3 text-amber-50">Link</Label>
 
-                                                        <div className="font-sans  ml-[3px] pl-1 bg-amber-200 h-7 rounded-[5px] pl-1 text-black flex flex-row justify-between mt-2 hover:cursor-pointer w-full  mr-1" onClick={() => handleCopy(item.link)}>
+                                                        <div className="font-sans  ml-[3px] pl-1 bg-amber-200 h-7 rounded-[5px] text-black flex flex-row justify-between mt-2 hover:cursor-pointer w-full  mr-1" onClick={() => handleCopy(item.link)}>
                                                             {item.link}
                                                             <LinkIcon className="w-5 h-5 mt-1 pr-1" /></div></div> : <></>}
 

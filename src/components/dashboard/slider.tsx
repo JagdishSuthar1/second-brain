@@ -1,12 +1,12 @@
 import { useSearchParams } from "react-router-dom";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { FileIcon, MessageSquareIcon, TagsIcon, VideoIcon, XIcon } from "lucide-react";
+import { FileIcon, TagsIcon, VideoIcon, XIcon } from "lucide-react";
 import { useContext } from "react";
 import { DashboardContext } from "@/context/dashboard-context";
 
 export default function SidebarApp() {
     const queryParams = new URLSearchParams();
-    const [searchParams , setSearchParams] = useSearchParams();
+    const [ , setSearchParams] = useSearchParams();
     const {setFilter, setShareFilter , setFetchingContentForDashboard} = useContext(DashboardContext)!;
     const items = [
         {

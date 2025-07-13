@@ -21,6 +21,7 @@ export default function ShareSingleContent() {
             toast.success("Link Copied")
         }
         catch(err) {
+            console
             toast.error("Failed to Copy")
         }
     }
