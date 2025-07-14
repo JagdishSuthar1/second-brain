@@ -14,10 +14,19 @@ import { io } from "socket.io-client"
 import Lottie from "lottie-react"
 import loader from "@/animations/loader.json"
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useNavigate } from "react-router-dom";
 const ENDPOINT = "http://localhost:3000"
 
 
 export default function ChatPage() {
+
+    const { auth } = useContext(AuthContext)!;
+    console.log(auth)
+    const navigate = useNavigate()
+    if(auth  && auth.authenticated == false) {
+    navigate("/auth")
+    }
+
 
     const { fetchGroupsAgain, setFetchFriendsAgain,
         setFetchGroupsAgain, fetchfriendsAgain, mychats,
@@ -30,7 +39,7 @@ export default function ChatPage() {
     } = useContext(ChatContext)!;
 
 
-    const { auth } = useContext(AuthContext)!;
+
     const messageRef = useRef<HTMLInputElement>(null)
     // const [isTyping, setIsTyping] = useState(true);
     // const [loading, setLoading] = useState<boolean>(true);
@@ -126,6 +135,11 @@ export default function ChatPage() {
 
 
     useEffect(() => {
+        
+        if(auth  && auth.authenticated == false) {
+     navigate("/")
+    }
+
         // console.log(auth)
         if (auth.user != null) {
             const socketSmaple = io(ENDPOINT);

@@ -6,7 +6,6 @@ import ProtectedRoutes from './protectedRoutes'
 import { useContext } from 'react'
 import { AuthContext } from './context/auth-context'
 import DashboardPage from './pages/dashboard'
-import MainPage from './components/landing/mainpage'
 import ContentDetail from './pages/detail'
 import ChatPage from './pages/chat'
 import ShareAllContent from './pages/share'
@@ -24,9 +23,9 @@ function App() {
     {/* <Route path='/home' element ={<ProtectedRoutes authenticated={auth.authenticated} element={<LandingPage/>}/>}>
     //  */}
 
-      <Route path='/'  element={<LandingPage/>}>
+      <Route path='/'  element={<LandingPage/>}  >
 
-    <Route index element={<MainPage/>}/>
+    {/* <Route index element={<MainPage/>}/> */}
     </Route>
 
     <Route path={'/dashboard'} element ={<ProtectedRoutes authenticated={auth.authenticated} element={<DashboardPage/>}/>}/>
@@ -36,7 +35,7 @@ function App() {
     <Route path={'/share/all/:id'} element ={<ProtectedRoutes authenticated={auth.authenticated} element={<ShareAllContent/>}/>}/>
     <Route path={'/share/single/:id'} element ={<ProtectedRoutes authenticated={auth.authenticated} element={<ShareSingleContent/>}/>}/>
 
-    {/* <Route path={'*'} element ={<div>No Page Found</div>}/> */}
+    <Route path={'*'} element ={<div className='flex flex-col justify-center items-center w-screen h-screen font-black text-3xl'>No Page Found</div>}/>
     {/* <Route path='/home' element ={<LandingPage/>}/> */}
     </Routes>
     </BrowserRouter>

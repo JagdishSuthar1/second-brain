@@ -6,7 +6,7 @@ import { MenuIcon } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 export default function Header() {
-  const { setAuth } = useContext(AuthContext)!;
+  const {auth, setAuth } = useContext(AuthContext)!;
   const navigate = useNavigate();
   function handleLogout() {
     setAuth({
@@ -22,6 +22,7 @@ export default function Header() {
     navigate("/auth");
   }
 
+  console.log(auth)
   return (
     <div className="sticky top-0  backdrop-blur-sm w-full h-20 p-5 flex flex-row justify-between  bg-transparent z-30">
       <div className="pl-10 flex flex-row gap-2">
@@ -33,24 +34,27 @@ export default function Header() {
         </Link>
       </div>
 
-
       <div className="flex ">
       <Popover>
         <PopoverTrigger className="hover:cursor-pointer">
-          <MenuIcon className="w-5 h-5 bg-white md:hidden mt-[5px]" />
+          <MenuIcon className="w-5 h-5 bg-white md:hidden mt-[5px] " />
         </PopoverTrigger>
-        <PopoverContent className="w-35 h-35  ">
+        <PopoverContent className="w-35 h-35 mr-5">
           <nav className="flex flex-col gap-3 ">
             <Link to={"/chats"} className="font-bold">SuperBrain</Link>
 
             <Link to={"/dashboard"} className="font-bold">Dashboard</Link>
-
-             <Button
+            {auth.authenticated ? <Button
             className="bg-[#222222] pl-[0.2px] pr-[1.3px] hover:cursor-pointer w-20 text-white/78 hover:bg-amber-50 hover:text-black font-bold text-[17px]"
             onClick={() => handleLogout()}
           >
             log out
-          </Button>
+          </Button> : <Button
+            className="bg-[#222222] pl-[0.2px] pr-[1.3px] hover:cursor-pointer w-25 text-white/78 hover:bg-amber-50 hover:text-black font-bold text-[17px]"
+            onClick={() => navigate("/auth")}
+          >
+            Sign In/Up
+          </Button> }
           </nav>
         </PopoverContent>
       </Popover>
@@ -66,12 +70,17 @@ export default function Header() {
               Dashboard
             </span>
           </Link>
-          <Button
-            className="bg-[#222222] pl-[1.3px] pr-[1.3px] hover:cursor-pointer w-20 text-white/78 hover:bg-amber-50 hover:text-black font-bold text-[17px]"
+           {auth.authenticated ? <Button
+            className="bg-[#222222] pl-[0.2px] pr-[1.3px] hover:cursor-pointer w-20 text-white/78 hover:bg-amber-50 hover:text-black font-bold text-[17px]"
             onClick={() => handleLogout()}
           >
             log out
-          </Button>
+          </Button> : <Button
+            className="bg-[#222222] pl-[0.2px] pr-[1.3px] hover:cursor-pointer w-35 text-white/78 hover:bg-amber-50 hover:text-black font-bold text-[17px]"
+            onClick={() => navigate("/auth")}
+          >
+            Sign In/Sign up
+          </Button> }
         </div>
       </div>
     </div>

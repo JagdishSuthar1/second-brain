@@ -3,9 +3,17 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useContext } from "react";
 import { DashboardContext } from "@/context/dashboard-context";
+import { AuthContext } from "@/context/auth-context";
+import { useNavigate } from "react-router-dom";
 
 export default function ContentDetail() {
     const {aiSummary } = useContext(DashboardContext)!
+    
+    const {auth} = useContext(AuthContext)!;
+    const navigate = useNavigate();
+    if(auth.authenticated == false) {
+    navigate("/auth")
+    }
     console.log(aiSummary)
     return (
         <div className="w-full h-full font-sans flex flex-col gap-3 bg-[#191919] text-amber-50">

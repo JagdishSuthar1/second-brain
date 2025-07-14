@@ -32,15 +32,14 @@ export default function KeyFeature() {
 
   return (
     <section className="p-9 bg-[radial-gradient(ellipse_at_top_right,_#0f0f1a,_#0335,_#0000)] w-full relative overflow-x-clip">
-      <div>
-        <div className=" flex justify-center bg-gradient-to-b from-gray-900 to-blue-500 text-transparent bg-clip-text">
+        <div className="mt-1 flex justify-center bg-gradient-to-b from-gray-900 to-blue-500 text-transparent bg-clip-text">
           <h1 className="text-5xl font-bold ">Key Features</h1>
         </div>{" "}
-        <div className="mt-7 flex flex-col gap-5 md:flex-row justify-center items-center  md:gap-5 md:flex-wrap  py-5">
+        <div className="mt-7 px-3 flex flex-col gap-5 md:flex-row justify-center items-center  md:gap-5 md:flex-wrap  py-5">
           {features.map((item, index) => (
             <motion.div
               key={index}
-              className="flex flex-col p-3 shadow-[0_2px_12px_#546644] border-2 gap-3 h-45 w-110 md:w-full/2 md:h-full/2 bg-[#eeeeee55] rounded-2xl "
+              className="flex flex-col p-3 shadow-[0_2px_12px_#546644] border-2 gap-3 h-49 w-100 md:w-full/2 md:h-full/2 bg-[#eeeeee55] rounded-2xl "
               whileHover={{scale : 1.03}}
             >
               <CardHeader className="text-center text-[15px] text-black py-1">
@@ -52,7 +51,6 @@ export default function KeyFeature() {
             </motion.div>
           ))}
         </div>
-      </div>
     </section>
   );
 }

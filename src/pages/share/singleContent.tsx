@@ -9,12 +9,18 @@ import { LinkIcon } from "lucide-react";
 import { toast } from "sonner";
 import { axiosInstance } from "@/axiosInstance";
 import CryptoJS from "crypto-js"
+import { AuthContext } from "@/context/auth-context";
+import { useNavigate } from "react-router-dom";
 
 const secretKey = "Jagdish-Suthar";
 
 export default function ShareSingleContent() {
     const {shareContentData , setShareContentData} = useContext(DashboardContext)!
-    
+       const {auth} = useContext(AuthContext)!;
+    const navigate = useNavigate();
+    if(auth.authenticated == false) {
+    navigate("/auth")
+    }
        async function handleCopy(link : string) {
         try {
             await navigator.clipboard.writeText(link);
@@ -30,7 +36,7 @@ export default function ShareSingleContent() {
     async function handleLoadingContent(contentId : string) {
         try {
             const response = await axiosInstance.get(`/api/v1/content/single/${contentId}`);
-            console.log(response.data)
+            //console.log(response.data)
             if(response.data.success == true) {
                     setShareContentData(response.data.data);
             }
@@ -44,10 +50,10 @@ export default function ShareSingleContent() {
     useEffect(()=>{
 
         const id = window.location.pathname.split("/")[3];
-        console.log(id);
+        //console.log(id);
          const bytes = CryptoJS.AES.decrypt(decodeURIComponent(id), secretKey);
         const contentId = bytes.toString(CryptoJS.enc.Utf8);
-        console.log("id" ,contentId);
+        //console.log("id" ,contentId);
         handleLoadingContent(contentId);
 
         return ()=>{
@@ -55,7 +61,7 @@ export default function ShareSingleContent() {
         }
     },[])
     
-    // console.log(aiSummary)
+    // //console.log(aiSummary)
     return (
         <div className="w-full h-full font-sans flex flex-col gap-3 bg-[#191919] text-amber-50">
             <Header />

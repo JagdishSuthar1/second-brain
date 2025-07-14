@@ -25,6 +25,11 @@ export default function ShareAllContent() {
     const { auth } = useContext(AuthContext)!;
     const { shareFilter, setShareFilter,  setFetchingContentForDashboard, setShareDashboardContent, shareDashboardContent } = useContext(DashboardContext)!;
     const location = useLocation();
+    const navigate = useNavigate();
+    
+        if(auth.authenticated == false) {
+    navigate("/auth")
+    }
     // const [sidebarOpen, setSiderBarOpen] = useState(true);
     // const locationRef = useRef<object>(location)
 
@@ -46,7 +51,6 @@ export default function ShareAllContent() {
     }
 
     const { setAuth } = useContext(AuthContext)!;
-    const navigate = useNavigate();
 
     function handleLogout() {
         setAuth({
