@@ -26,7 +26,7 @@ export default function ShareContentSingleDialog(children : ChildProps) {
                 const shareableString = `http://localhost:5173/share/single/${hashedUserId}`
                 setLinkforShare(shareableString);
                 setLinkGenerated(true);
-                console.log(hashedUserId);
+                ////console.log(hashedUserId);
                 toast.success("Link Generated Successfully")
             }
             catch(err) {
@@ -59,12 +59,12 @@ export default function ShareContentSingleDialog(children : ChildProps) {
             setLinkforShare("")
         }}>
             <DialogTrigger asChild>
-                <Button className="flex flex-row gap-3 hover:cursor-pointer">
+                <Button className="flex flex-row gap-3 hover:cursor-pointer md:w-11 md:h-9 ">
                                     <Share2Icon className="hover:cursor-pointer" />
                                 </Button>
             </DialogTrigger>
             <DialogOverlay className="bg-black/50 fixed inset-0 z-40" />
-            <DialogContent className="bg-[#191919] flex flex-col gap-3">
+            <DialogContent className="bg-[#191919] flex flex-col gap-3 w-100 h-41">
             <DialogTitle className="text-amber-50 pl-1">Share Your Brain</DialogTitle>
                 <Card>
                     <CardContent className="flex flex-row">

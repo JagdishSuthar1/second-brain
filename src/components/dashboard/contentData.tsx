@@ -14,7 +14,7 @@ export default function ContentData() {
     const {contentDetail , setContentDetail , setContentProgress, setCurrentTab , currentTab} = useContext(DashboardContext)!;
     
     function handleNext() {
-            console.log(contentDetail)
+            ////console.log(contentDetail)
         if(contentDetail.type != "" && contentDetail.data != "" && contentDetail.link != "") {
             setContentProgress(66);
             setCurrentTab("Tags");
@@ -27,10 +27,10 @@ export default function ContentData() {
     const uploadRef = useRef<HTMLInputElement>(null);
      async function handleVideoImageUpload() {
             if(uploadRef != null && uploadRef.current != null && uploadRef.current.files != null) {
-                console.log(uploadRef.current.files[0])
+                ////console.log(uploadRef.current.files[0])
                 const fileData = new FormData();
                 fileData.append("file", uploadRef.current.files[0]);
-                console.log(fileData)
+                ////console.log(fileData)
 
                 const response = await axiosInstance.post("/api/v1/media/upload", fileData , {
                     headers : {
@@ -38,7 +38,7 @@ export default function ContentData() {
                     }
                 })
                 
-                console.log(response.data)
+                ////console.log(response.data)
                 if(response.data.success == true) {
                     setContentDetail({...contentDetail , 
                         video_image_url : response.data.data.url,
@@ -56,21 +56,21 @@ export default function ContentData() {
             <CardHeader>
                 <CardTitle>Add the Content here</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col gap-3 ">
+            <CardContent className="flex flex-col gap-3 w-100 min-h-max">
                 <div className="flex flex-col gap-2">
                     <Label htmlFor="title">Title</Label>
-                    <Input type="text" id="title" onChange={(event)=> {setContentDetail({...contentDetail , title : event.target.value})}} value={contentDetail?.title}/>
+                    <Input type="text" id="title" onChange={(event)=> {setContentDetail({...contentDetail , title : event.target.value})}} value={contentDetail?.title} className="w-[80%]"/>
                 </div >
                 <div className="flex flex-col gap-2">
                     <Label htmlFor="data">Data</Label>
                     <ScrollArea className="w-full h-[73px]" id="data"  >
-                    <Textarea onChange={(event)=> {setContentDetail({...contentDetail , data : event.target.value})}} value={contentDetail?.data} />
+                    <Textarea onChange={(event)=> {setContentDetail({...contentDetail , data : event.target.value})}} value={contentDetail?.data}  className="w-[80%]"/>
                     </ScrollArea>
                 </div>
 
                 <div className="flex flex-col gap-2">
                     <Label htmlFor="data">Upload Content</Label>
-                    <div className="flex flex-row ">
+                    <div className="flex flex-row w-[80%]">
                     <Input ref={uploadRef} type="file"  placeholder="Choose file" className="rounded-r-none" />
                     <Button onClick={()=> handleVideoImageUpload()} className="bg-white text-black hover:cursor-pointer hover:bg-white hover:text-black  rounded-l-none">Upload</Button>
                         
@@ -79,7 +79,7 @@ export default function ContentData() {
 
                 <div className="flex flex-col gap-2 mt-1">
                     <Label htmlFor="link">Link</Label>
-                    <Input type="link" id="link" onChange={(event)=> {setContentDetail({...contentDetail , link : event.target.value})}} value={contentDetail?.link}/>
+                    <Input type="link" id="link" onChange={(event)=> {setContentDetail({...contentDetail , link : event.target.value})}} value={contentDetail?.link}  className="w-[80%]"/>
                 </div>
             </CardContent>
             <CardFooter className="flex flex-row justify-end mt-2">

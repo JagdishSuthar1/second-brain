@@ -13,9 +13,9 @@ export default function SignIn() {
     const {signInFormData , setSignInFormData , setAuth} = useContext(AuthContext)!;
     const navigate = useNavigate()
     async function handleSignin() {
-        console.log(signInFormData);
+        ////console.log(signInFormData);
         const response = await axiosInstance.post("/api/v1/auth/signin" , signInFormData);
-        console.log(response.data);
+        ////console.log(response.data);
         if(response.data.success == true) {
             setAuth({
                 authenticated : true,
@@ -24,7 +24,7 @@ export default function SignIn() {
             sessionStorage.setItem("accessToken" , JSON.stringify(response.data.data.token));
             sessionStorage.setItem("user" , JSON.stringify(response.data.data));
             toast.success(response.data.message)
-            navigate("/home")
+            navigate("/")
         }
         else {
             toast.error(response.data.message);

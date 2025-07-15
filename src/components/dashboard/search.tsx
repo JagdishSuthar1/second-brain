@@ -17,16 +17,16 @@ export function SearchQuery() {
 
 
     async function searchForSuggestion() {
-        console.log("Search the notes in your Brain....");
-        console.log(searchTextRef)
+        ////console.log("Search the notes in your Brain....");
+        ////console.log(searchTextRef)
         if (searchTextRef != null && searchTextRef.current != null && searchTextRef.current.value != "") {
             const response = await axiosInstance.post("/api/v1/search/top-suggestion", {
                 text: searchTextRef.current.value
             })
 
-            console.log(response.data)
+            ////console.log(response.data)
             if (response.data.success == true) {
-                console.log(response.data.data)
+                ////console.log(response.data.data)
                 setSuggestedContent(response.data.data);
                 // searchRef.current.value = "";
                 // setSearchText("")
@@ -44,7 +44,7 @@ export function SearchQuery() {
     function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
         if (event.key === 'Enter') {
             if (searchOpen == false) setSearchOpen(true);
-            console.log("Key is pressed")
+            ////console.log("Key is pressed")
             searchForSuggestion();
         }
     }
@@ -52,18 +52,18 @@ export function SearchQuery() {
 
 
     async function handleAISummarize() {
-        console.log("jjj")
-        console.log(suggestedContent);
+        ////console.log("jjj")
+        ////console.log(suggestedContent);
         
         
         if (searchTextRef != null && searchTextRef.current != null && suggestedContent != null) {
-            console.log(searchTextRef);
+            ////console.log(searchTextRef);
             const response = await axiosInstance.post("/api/v1/search/ai-summarize", {
                 query: searchTextRef.current.value,
                 documents: suggestedContent
             })
 
-            console.log(response.data);
+            ////console.log(response.data);
             if (response.data.success = true) {
                 setAiSummary(response.data.data);
                 toast.success(response.data.message);
@@ -79,10 +79,10 @@ export function SearchQuery() {
     return (
 
 
-        <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
+        <CommandDialog open={searchOpen} onOpenChange={setSearchOpen} >
             {/* <DialogTitle>Search In </DialogTitle> */}
-            <div className="flex flex-row mt-10 mb-3">
-            <Input ref={searchTextRef} placeholder="Search in Your Brain" className="mt-2 ml-2"
+            <div className="flex flex-row mt-10 mb-3 ">
+            <Input ref={searchTextRef} placeholder="Search in Your Brain" className="mt-2 ml-2 w-full"
                 onKeyDown={(event) => handleKeyDown(event)}  />
 
             <div className="mt-2 flex justify-end px-3">
@@ -91,7 +91,7 @@ export function SearchQuery() {
             </div>
             <CommandInput />
 
-            <CommandList className="bg-[#191919] mt-1">
+            <CommandList className="bg-[#191919] mt-1  w-full">
                 <CommandEmpty className="text-amber-50 flex flex-row justify-center">No results found</CommandEmpty>
                 {suggestedContent && suggestedContent.length > 0 ? <CommandGroup heading="Suggestions" className="flex flex-col gap-2">
                     {/* here i render the last fetched notes */}

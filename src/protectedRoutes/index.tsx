@@ -20,7 +20,7 @@ export default function ProtectedRoutes({authenticated  , element} : ProtectedRo
         }
         else if(authenticated == true && location.pathname.includes("auth")) {
         // console.log("a")
-        navigate("/home")
+        navigate("/")
     }
     },[loading, authenticated]) 
     

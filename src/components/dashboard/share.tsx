@@ -23,7 +23,7 @@ export default function ShareContent() {
                 const shareableString = `http://localhost:5173/share/all/${hashedUserId}`
                 setLinkforShare(shareableString);
                 setLinkGenerated(true);
-                console.log(hashedUserId);
+                ////console.log(hashedUserId);
                 toast.success("Link Generated Successfully")
             }
             catch(err) {
@@ -62,7 +62,7 @@ export default function ShareContent() {
                                 </Button>
             </DialogTrigger>
             <DialogOverlay className="bg-black/50 fixed inset-0 z-40" />
-            <DialogContent className="bg-[#191919] flex flex-col gap-3">
+            <DialogContent className="bg-[#191919] flex flex-col gap-3 w-100 h-41">
             <DialogTitle className="text-amber-50 pl-1">Share Your Brain</DialogTitle>
                 <Card>
                     <CardContent className="flex flex-row">

@@ -44,7 +44,7 @@ export default function  AddContentDialog() {
                     <span>Add Content</span></Button>
             </DialogTrigger>
             <DialogOverlay className="bg-black/50 fixed inset-0 z-40" />
-            <DialogContent className="flex flex-col gap-3 w-120 h-140 bg-[#191919]">
+            <DialogContent className="flex flex-col gap-3 md:w-120 h-140 bg-[#191919] w-100 ">
                 {/* <DialogTitle className="text-white text-center">Add Your Brain Memory Here</DialogTitle> */}
                 <DialogHeader>
                 <Progress  value={contentProgress} className="bg-amber-50"/>

@@ -37,7 +37,7 @@ export default function ShareAllContent() {
 
         try {
             const response = await axiosInstance.get(`/api/v1/share/${userId}`);
-            console.log(response.data)
+            ////console.log(response.data)
             if (response.data.success) {
                 setShareDashboardContent(response.data.data);
             }
@@ -46,7 +46,7 @@ export default function ShareAllContent() {
             // }
         }
         catch (err) {
-            console.log(err)
+            ////console.log(err)
         }
     }
 
@@ -68,7 +68,7 @@ export default function ShareAllContent() {
 
     async function fetchingShareContentAccordingToType(userId: string, type: string) {
         const response = await axiosInstance.get(`/api/v1/share/${userId}/${type}`);
-        console.log(response.data)
+        ////console.log(response.data)
         if (response.data.success == true) {
             setShareDashboardContent(response.data.data);
         }
@@ -77,7 +77,7 @@ export default function ShareAllContent() {
 
     useEffect(() => {
         const contentType = sessionStorage.getItem("sharetype");
-        console.log("share type at first mount", contentType);
+        ////console.log("share type at first mount", contentType);
         const shareUserId = window.location.pathname.split("/")[3]
         // const {id}  = useParams()
         // const shareUserId = id;
@@ -87,7 +87,7 @@ export default function ShareAllContent() {
         }
         else {
             const typeFromSession = JSON.parse(contentType);
-            console.log("type from session", typeof typeFromSession)
+            ////console.log("type from session", typeof typeFromSession)
             setShareFilter(typeFromSession);
 
             fetchingShareContentAccordingToType(shareUserId, typeFromSession);
@@ -102,10 +102,10 @@ export default function ShareAllContent() {
 
 
     async function handleAddTouYourBrain(item: ContentDetailType) {
-        // console.log(contentDetail);
+        // ////console.log(contentDetail);
 
         if (auth.user != null) {
-            console.log(item)
+            ////console.log(item)
             const contentBodyForAdd = {
                 link: item.link,
                 type: item.type,
@@ -115,7 +115,7 @@ export default function ShareAllContent() {
                 public_id: item.public_id,
                 allTags: item.allTags,
             }
-            console.log(contentBodyForAdd)
+            ////console.log(contentBodyForAdd)
             try {
                 const response = await axiosInstance.post(`/api/v1/content/add-content/${auth.user.userId}`, contentBodyForAdd);
                 if (response.data.success == true) {
@@ -129,7 +129,7 @@ export default function ShareAllContent() {
             }
             catch (err: any) {
                 // toast.error(err);
-                console.log(err)
+                ////console.log(err)
             }
 
         }
@@ -142,7 +142,7 @@ export default function ShareAllContent() {
     useEffect(() => {
         const queryParams = new URLSearchParams(window.location.search);
         const typeFromURL = queryParams.get("sharetype");
-        console.log("type when location change", typeFromURL)
+        ////console.log("type when location change", typeFromURL)
         if (typeFromURL != null) {
             const typeFromQuery = queryParams.get("sharetype")!;
             setShareFilter(typeFromQuery);
@@ -168,7 +168,7 @@ export default function ShareAllContent() {
 
 
     // async function handleDeleteContent(userId: string, contentId: string) {
-    //     console.log(userId + " " + contentId);
+    //     ////console.log(userId + " " + contentId);
     //     const response = await axiosInstance.delete(`/api/v1/content/delete-content/${userId}/${contentId}`)
     //     if (response.data.success == true) {
     //         setShareDashboardContent(response.data.data)

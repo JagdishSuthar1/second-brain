@@ -1,7 +1,7 @@
 
 export default function Footer() {
     return (
-        <footer className="bg-black text-white mt-5 py-15 flex flex-col gap-5 justify-center items-center">
+        <footer className="bg-black bg-gradient-to-b from-[#222222] to-[#000000] text-white py-15  flex flex-col gap-5 justify-center items-center border-none">
             <div className="flex justify-center pt-5 items-center gap-3">
                 <img src="/brain.svg" alt="" className="w-10 h-10"/> 
                 <span className="text-2xl font-bold ">Second Brain</span>

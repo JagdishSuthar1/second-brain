@@ -20,7 +20,7 @@ export default function TagsData() {
         if (tagRef != null && tagRef.current != null) {
             if (auth.user != null && tagRef.current.value != "") {
                 const response = await axiosInstance.post(`/api/v1/content/add-tag/${auth.user.userId}`, { title: tagRef.current.value });
-                console.log(response.data)
+                ////console.log(response.data)
                 if (response.data.success == true) {
                     setTagsForTextArea(tagsForTextArea + " " + tagRef.current.value)
                     tagRef.current.value = "";
@@ -32,7 +32,7 @@ export default function TagsData() {
     }
 
     async function handleAddContent() {
-        console.log(contentDetail);
+        ////console.log(contentDetail);
         if (auth.user != null) {
             try {
             const response = await axiosInstance.post(`/api/v1/content/add-content/${auth.user.userId}`, contentDetail);
@@ -55,7 +55,7 @@ export default function TagsData() {
         }
         catch(err : any) {
             // toast.error(err);
-            console.log(err)
+            ////console.log(err)
         }
     
     }

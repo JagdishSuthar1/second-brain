@@ -55,7 +55,7 @@ export default function SidebarApp() {
                                     <SidebarMenuButton className="hover:cursor-pointer" asChild onClick={()=> {
                                         if(window.location.pathname.split("/")[1] != "share") {
                                             queryParams.append( "type"  , item.url) 
-                                        console.log(queryParams.get("type"));
+                                        ////console.log(queryParams.get("type"));
                                         sessionStorage.setItem("type" , JSON.stringify(item.url))
                                             setSearchParams(queryParams);
                                             setFilter(item.title);
@@ -63,7 +63,7 @@ export default function SidebarApp() {
                                         }
                                         else {
                                             queryParams.append("sharetype"  , item.url) 
-                                        console.log(queryParams.get("sharetype"));
+                                        ////console.log(queryParams.get("sharetype"));
                                         sessionStorage.setItem("sharetype" , JSON.stringify(item.url))
                                             setSearchParams(queryParams);
                                             setShareFilter(item.title);

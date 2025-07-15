@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 import {  useContext, useRef, useState } from "react";
 import { ChatContext } from "@/context/chat-context";
-import { GroupIcon, PlusIcon, SearchIcon, UserIcon } from "lucide-react";
+import { GroupIcon, PlusIcon, SearchIcon, UserIcon, UsersIcon } from "lucide-react";
 import { Input } from "../ui/input";
 import { axiosInstance } from "@/axiosInstance";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
@@ -41,10 +41,10 @@ export default function SlideBarForChat() {
     const searchGroupRef = useRef<HTMLInputElement>(null)
 
     async function handleCreateGroupChat(userId: string) {
-        console.log(groupData);
+        ////console.log(groupData);
         if (groupData.members.length >= 2 && groupData.name != "") {
             const response = await axiosInstance.post(`/api/v1/chats/create-group-chat/${userId}`, groupData);
-            console.log(response.data)
+            ////console.log(response.data)
             if (response.data.success == true) {
                 toast.success(response.data.messsage);
                 setFetchGroupsAgain(true);
@@ -59,7 +59,7 @@ export default function SlideBarForChat() {
         const response = await axiosInstance.post(`/api/v1/chats/create-friend-chat/${userId}`, {
             friendId: friendId
         })
-        console.log(response.data)
+        ////console.log(response.data)
         if (response.data.success == true) {
 
             toast.success(response.data.messsage);
@@ -73,14 +73,14 @@ export default function SlideBarForChat() {
 
 
     async function handleSearchUser(text: string) {
-        console.log(text);
+        ////console.log(text);
         const response = await axiosInstance.post("/api/v1/search/all-users", {
             query: text
         })
 
-        console.log(response.data)
+        ////console.log(response.data)
         if (response.data.success) {
-            console.log(response.data.data)
+            ////console.log(response.data.data)
             setSearchableUser(response.data.data);
         }
     }
@@ -88,11 +88,11 @@ export default function SlideBarForChat() {
 
     async function getAllMessage(userId: string, friendId: string) {
 
-        console.log("userId" , userId + "and" + "freindId" , friendId);
+        ////console.log("userId" , userId + "and" + "freindId" , friendId);
         const response = await axiosInstance.get(`/api/v1/message/get-all/${userId}/${friendId}`)
-        console.log("user message " ,response.data);
+        ////console.log("user message " ,response.data);
         if (response.data.success == true) {
-            console.log(response.data.data)
+            ////console.log(response.data.data)
             
             setSelectedUserMessages(response.data.data);
         }
@@ -100,7 +100,7 @@ export default function SlideBarForChat() {
 
     async function getAllGroupMessage(groupId : string) {
         const response = await axiosInstance.get(`/api/v1/message/get-all-group/${groupId}`);
-        console.log("group message ",response.data.data);
+        ////console.log("group message ",response.data.data);
         if(response.data.success == true) {
             setSelectedGroupMessages(response.data.data);
         }
@@ -108,14 +108,14 @@ export default function SlideBarForChat() {
 
     // useEffect(()=> {
     //     if(userChatSelected != null) {
-    //         console.log("user selected " ,userChatSelected);
+    //         ////console.log("user selected " ,userChatSelected);
     //         getAllMessage(userChatSelected.myId... , userChatSelected.friendId._id)
     //     }
     //         },[userChatSelected])
 
     return (
-        <Sidebar className={`p-3 mt-20 bg-[#222222] text-white border-[1px] `}>
-            <SidebarContent className="w-full text-[20px] bg-[#222222] text-amber-50 gap-2">
+        <Sidebar className={`p-3 mt-20 bg-[#] text-white border-[1px] border-none `}>
+            <SidebarContent className="w-full text-[20px] bg-[#000000] text-amber-50 gap-2">
                 <SidebarGroup>
                     <SidebarGroupLabel className="text-amber-50 text-[20px] mt-10"><div className="w-full flex flex-row justify-between"><span>My Chats</span><div className="flex flex-row gap-1"><Button onClick={() => setOpenSearch(true)}><SearchIcon /></Button> <Button onClick={() => setOpenAddGroup(true)}><PlusIcon /></Button></div>
                     </div>
@@ -153,7 +153,7 @@ export default function SlideBarForChat() {
                                 <Button className="hover:cursor-pointer" onClick={() => {
                                     if (groupNameRef != null && groupNameRef.current != null) {
                                         setGroupData({ ...groupData, name: groupNameRef.current.value })
-                                        // console.log({...groupData , name : groupNameRef.current.value})
+                                        // ////console.log({...groupData , name : groupNameRef.current.value})
                                     }
                                 }}>Add</Button>
 
@@ -177,7 +177,7 @@ export default function SlideBarForChat() {
                                             > {item.username} <Checkbox onClick={() => {
                                                 if (groupData.members.includes(item._id) == false) {
                                                     setGroupData({ ...groupData, members: [...groupData.members, item._id] })
-                                                    console.log("adding", { ...groupData, members: [...groupData.members, item._id] });
+                                                    ////console.log("adding", { ...groupData, members: [...groupData.members, item._id] });
                                                 }
                                                 else {
                                                     const dummyArray = [...groupData.members];
@@ -190,7 +190,7 @@ export default function SlideBarForChat() {
 
                                                     // setAddGroupUsers(dummyArray);
                                                     setGroupData({ ...groupData, members: dummyArray })
-                                                    console.log("removing ", { ...groupData, members: dummyArray })
+                                                    ////console.log("removing ", { ...groupData, members: dummyArray })
 
                                                 }
                                             }} /></CommandItem>
@@ -222,7 +222,7 @@ export default function SlideBarForChat() {
                                         setUserChatSelected(item)
                                         setGroupChatSelected(null);
                                         
-                                        console.log("friend Selected", item);
+                                        ////console.log("friend Selected", item);
                                         if (socket != null) {
                                             socket.emit("join-chat", item._id);
                                         }
@@ -234,7 +234,7 @@ export default function SlideBarForChat() {
                                         <SidebarMenuButton className="flex flex-col gap-5 text-amber-50">
                                             <div className="pl-5 w-full flex flex-row justify-items-start gap-5">
                                                 <UserIcon />
-                                                {item.friendId.username}
+                                                <span className="mt-1">{item.friendId.username}</span>
                                             </div>
                                             {/* {item.latestMessage.messsage} */}
                                         </SidebarMenuButton>
@@ -251,14 +251,14 @@ export default function SlideBarForChat() {
                                             socket.emit("join-chat", item._id);
                                         }
                                         
-                                        console.log("Group Selected", item);
+                                        ////console.log("Group Selected", item);
                                         getAllGroupMessage(item._id);
                                         
                                     }}>
                                         <SidebarMenuButton className="flex flex-col gap-5" >
-                                            <div className="flex flex-row gap-3 justify-items-start">
-                                                < GroupIcon/>
-                                                {item.name}
+                                              <div className="pl-5 w-full flex flex-row justify-items-start gap-5">
+                                                <UsersIcon />
+                                                <span className="mt-1">{item.name}</span>
                                             </div>
                                             {/* {item.latestMessage.messsage} */}
                                         </SidebarMenuButton>

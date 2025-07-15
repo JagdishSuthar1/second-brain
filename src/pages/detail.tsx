@@ -14,7 +14,7 @@ export default function ContentDetail() {
     if(auth.authenticated == false) {
     navigate("/auth")
     }
-    console.log(aiSummary)
+    // console.log(aiSummary)
     return (
         <div className="w-full h-full font-sans flex flex-col gap-3 bg-[#191919] text-amber-50">
             <Header />

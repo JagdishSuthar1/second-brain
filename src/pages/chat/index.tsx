@@ -23,15 +23,16 @@ export default function ChatPage() {
     const { auth } = useContext(AuthContext)!;
     console.log(auth)
     const navigate = useNavigate()
-    if(auth  && auth.authenticated == false) {
-    navigate("/auth")
+    if (auth && auth.authenticated == false) {
+        navigate("/auth")
     }
 
 
     const { fetchGroupsAgain, setFetchFriendsAgain,
         setFetchGroupsAgain, fetchfriendsAgain, mychats,
         setMyChats, groupChats, setGroupChats,
-         setMainSize,
+        mainSize,
+        setMainSize,
         userChatSelected, groupChatSelected, socket,
         setSocket,
         selectedUserMessages, setSelectedUserMessages,
@@ -84,7 +85,7 @@ export default function ChatPage() {
                     roomId: userChatSelected?._id,
                     message: messageRef.current.value,
                     messageId: response.data.data._id,
-                    senderId : auth.user.userId
+                    senderId: auth.user.userId
                 })
 
 
@@ -135,10 +136,10 @@ export default function ChatPage() {
 
 
     useEffect(() => {
-        
-        if(auth  && auth.authenticated == false) {
-     navigate("/")
-    }
+
+        if (auth && auth.authenticated == false) {
+            navigate("/")
+        }
 
         // console.log(auth)
         if (auth.user != null) {
@@ -245,17 +246,17 @@ export default function ChatPage() {
 
 
     return (
-        <div className="fixed w-vw">
+        <div className="fixed w-vw ">
             <Header />
-            <div className="w-screen h-screen">
-                <SidebarProvider className="flex flex-row h-full"   style={{ "--sidebar-width": "25rem" } as React.CSSProperties}
->
+            <div className="w-screen h-screen bg-[radial-gradient(ellipse_at_top_right,_#facc15,_#222222,_#000000)] ">
+                <SidebarProvider className="flex flex-row h-full " style={{ "--sidebar-width": "25rem" } as React.CSSProperties}
+                >
                     <SlideBarForChat />
 
-                    <main className={`h-[90vh] w-full`}>
-                        <SidebarTrigger className="w-10 h-5" />
-                        {userChatSelected ? <Card className="w-full h-full flex flex-col gap-2 pt-0 rounded-none">
-                            <CardHeader className="pt-5 h-[10%] w-full bg-[#191919] text-white flex flex-row">
+                    <main className={`h-[90vh] w-full border-none rounded-none`}>
+                    <SidebarTrigger className={`w-10 text-white mt-[7px] bg-black`} />
+                        {userChatSelected ? <Card className="border-none  w-full h-full flex flex-col gap-2 pt-0 rounded-none">
+                            <CardHeader className="pt-5 h-[10%] w-full bg-[#191919] text-white flex flex-row px-3">
                                 <div className="flex flex-row gap-10">
                                     <div className="flex flex-row gap-3">
                                         <Avatar className="w-10 h-10 mt-1 bg-black text-amber-50">
@@ -263,7 +264,7 @@ export default function ChatPage() {
                                         </Avatar>
                                         <div className="flex flex-col">
                                             <span>{userChatSelected?.friendId.username}</span>
-                                            {connectedUsers && connectedUsers.findIndex((id) => id == userChatSelected?.friendId._id) != -1 ? <span className="text-[12px] flex flex-row gap-1">Status <img src="/greenDot.png"  className="w-5 h-5"/> </span> : <span className="text-[12px] flex flex-row gap-1">Status <img src="/redDot.png" className="w-5 h-5"/></span>}
+                                            {connectedUsers && connectedUsers.findIndex((id) => id == userChatSelected?.friendId._id) != -1 ? <span className="text-[12px] flex flex-row gap-1">Status <img src="/greenDot.png" className="w-5 h-5" /> </span> : <span className="text-[12px] flex flex-row gap-1">Status <img src="/redDot.png" className="w-5 h-5" /></span>}
 
                                         </div>
 
@@ -271,14 +272,14 @@ export default function ChatPage() {
                                 </div>
 
                             </CardHeader>
-                                <CardContent className="h-[80%] w-full flex flex-col ">
-                            <ScrollArea className="h-full w-full flex flex-col gap-6">
-                                {/* {auth.user?.userId} */}
+                            <CardContent className="h-[80%] w-full flex flex-col ">
+                                <ScrollArea className="h-full w-full flex flex-col gap-6">
+                                    {/* {auth.user?.userId} */}
                                     {userChatSelected && selectedUserMessages ? selectedUserMessages.map((item, index) => (
                                         <div key={index} className="w-full h-10 mt-3">
-                                            
+
                                             {
-                                              auth.user &&  item.myId == auth.user?.userId ? <div className="w-full h-full pt-2 rounded-2xl  flex flex-row justify-end pr-3">
+                                                auth.user && item.myId == auth.user?.userId ? <div className="w-full h-full pt-2 rounded-2xl  flex flex-row justify-end pr-3">
                                                     <span className="w-auto bg-[#d8d2d2] rounded-[10px]  px-5 h-9 rounded-tl-none  p-1 mr-3 mt-[3px]">{item.message}</span>
                                                     <Avatar className="w-7 h-7 mt-1 mr-2">
                                                         <AvatarFallback className="bg-black text-amber-50">{item.friendId.username[0].toUpperCase()}</AvatarFallback>
@@ -297,8 +298,8 @@ export default function ChatPage() {
 
 
 
-                            </ScrollArea>
-                                </CardContent>
+                                </ScrollArea>
+                            </CardContent>
 
                             <CardFooter className="h-[5%] flex flex-row gap-3 pb-0 items-center pt-10">
                                 <Input ref={messageRef} placeholder="Type something here..." onChange={() => {
@@ -308,11 +309,13 @@ export default function ChatPage() {
 
                                 <Button onClick={() => handleSendingMessage()}><SendIcon /></Button>
                             </CardFooter>
-                        </Card> : groupChatSelected ? <Card className="w-full h-full flex flex-col gap-2 pt-0 rounded-none">
-                            <CardHeader className="pt-5 h-[10%] w-full bg-[#191919] text-white flex flex-row">
-                                <div className="flex flex-row gap-10">
-                                    <SidebarTrigger className="" onClick={() => setMainSize(e => !e)} />
-                                    <div className="flex flex-row gap-3">
+                        </Card> :
+                        
+                        
+                        groupChatSelected ? <Card className="w-full h-full flex flex-col gap-0 pt-0 rounded-none border-none">
+                            <CardHeader className="pt-5 h-[10%] w-full bg-[#191919] text-white flex flex-row px-3">
+                                <div className="flex flex-row gap-10 ">
+                                                <div className="flex flex-row gap-3">
                                         <Avatar className="w-10 h-10 mt-1 bg-black text-amber-50">
                                             <AvatarFallback className="bg-black">JS</AvatarFallback>
                                         </Avatar>
@@ -335,9 +338,9 @@ export default function ChatPage() {
                                         <div key={index} className="w-full h-10 ">
                                             {
                                                 item.userId?._id == auth.user?.userId ? <div className="w-full h-full pt-2 rounded-2xl  flex flex-row justify-end pr-3">
-                                                    <span className="w-auto bg-red-300 rounded-[10px] h-9 rounded-tl-none  p-1 mr-3 mt-[3px]">{item.message}</span>
-                                                    
-                                                     <Avatar className="w-7 h-7 mt-1 mr-2">
+                                                    <span className="w-auto bg-[#d8d2d2] rounded-[10px] h-9 rounded-tl-none  p-1 mr-3 mt-[3px]">{item.message}</span>
+
+                                                    <Avatar className="w-7 h-7 mt-1 mr-2">
                                                         <AvatarFallback className="bg-black text-amber-50">{item.userId.username[0].toUpperCase()}</AvatarFallback>
                                                     </Avatar> </div>
                                                     : <div className="w-full h-full rounded-2xl flex flex-row justify-start pl-3">
@@ -345,7 +348,7 @@ export default function ChatPage() {
                                                         <Avatar className="w-7 h-7 mt-1 mr-2">
                                                             <AvatarFallback className="bg-black text-amber-50">{item.userId?.username[0].toUpperCase()}</AvatarFallback>
                                                         </Avatar>
-                                                        <span className="w-auto bg-amber-200 rounded-[10px] h-9 rounded-tr-none  p-1 ml-3 mt-[3px] ">{item.message}</span> </div>
+                                                        <span className="w-auto bg-[#f1c4c4] rounded-[10px] h-9 rounded-tr-none  p-1 ml-3 mt-[3px] ">{item.message}</span> </div>
                                             }
                                         </div>
 
@@ -362,8 +365,8 @@ export default function ChatPage() {
                                 <Input ref={messageRef} placeholder="Type something here..." onChange={() => {
                                     console.log(messageRef.current?.value);
                                     // setIsTyping(true);
-                                }} 
-                                className="sm:mb-9 sm:pb-3"
+                                }}
+                                    className="sm:mb-9 sm:pb-3"
                                 />
 
                                 <Button onClick={() => handleSendingMessage()}><SendIcon /></Button>
@@ -374,7 +377,7 @@ export default function ChatPage() {
 
 
 
-                            <Card className="w-full h-full">
+                            <Card className="w-full h-full rounded-none">
                                 <CardContent className="w-full h-full flex flex-row justify-center items-center">
                                     <span>Click on the Chats to Start Message</span>
                                 </CardContent></Card>}

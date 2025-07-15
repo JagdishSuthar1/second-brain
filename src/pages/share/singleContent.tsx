@@ -3,9 +3,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useContext, useEffect } from "react";
 import { DashboardContext } from "@/context/dashboard-context";
-import ReactPlayerVideo from "@/components/reactPlayer";
+// import ReactPlayerVideo from "@/components/reactPlayer";
 import { Label } from "@/components/ui/label";
-import { LinkIcon } from "lucide-react";
 import { toast } from "sonner";
 import { axiosInstance } from "@/axiosInstance";
 import CryptoJS from "crypto-js"
@@ -63,26 +62,30 @@ export default function ShareSingleContent() {
     
     // //console.log(aiSummary)
     return (
-        <div className="w-full h-full font-sans flex flex-col gap-3 bg-[#191919] text-amber-50">
+        <div className="w-full min-h-screen font-sans flex flex-col gap-3 bg-[#191919] text-amber-50">
             <Header />
             <div className="w-full h-full flex flex-col p-3 text-black justify-center items-center">
-                <Card className="w-full h-[50%] rounded-none bg-[#191919] border-none flex flex-col">
-                    <CardHeader className="flex flex-row justify-center w-[97.3%] h-10 ml-5 bg-amber-200 items-center font-bold rounded-[9px]">{shareContentData ? shareContentData.title : ""}</CardHeader>
+                <Card className="w-full  h-full rounded-none bg-[#191919] border-none flex flex-col">
+                    <CardHeader className="flex flex-row justify-center md:w-[97.3%] h-10 md:ml-5 mx-5 bg-amber-200 items-center font-bold rounded-[9px]">{shareContentData ? shareContentData.title : ""}</CardHeader>
                     <CardContent className="flex flex-col gap-3 w-full h-full">
-                        <div className="flex flex-row w-full gap-3 h-full">
-                            {shareContentData && shareContentData.video_image_url ? <Card className="w-[30%] h-70 bg-red-200 p-2 flex flex-col gap-0">
+
+                        <div className="flex md:flex-row w-full gap-3 flex-col md:h-70">
+                            {shareContentData && shareContentData.video_image_url ? <Card className="lg:w-[30%] md:w-[47%] h-70  md:h-full flex flex-col gap-0">
                                 <CardHeader className="text-[20px] font-bold mt-3">Video/Image</CardHeader>
-                                <CardContent className="w-[400px] h-[400px] flex flex-col gap-2 pl-5">
-                                   <ReactPlayerVideo videoUrl={shareContentData.video_image_url}/>
+                                <CardContent className="w-full h-full">
+                                   <video src={shareContentData.video_image_url} controls className="w-[95%] h-full object-contain"/>
                        
                                 </CardContent>
                             </Card> : <></>}
 
-                            <Card className=" text-black w-full flex flex-col gap-2">
+                            <Card className=" text-black w-full h-full flex flex-col gap-2">
                                 <CardHeader className="text-[20px] font-bold">Data</CardHeader>
-                                <CardContent className="w-full h-full">
-                                    {shareContentData ? shareContentData.data : ""}
+                                <ScrollArea className="w-full h-100 overflow-hidden">
+                                <CardContent className="w-full md:h-full">
+                                    {/* {shareContentData ? shareContentData.data : ""} */}
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo suscipit rerum libero doloribus iure. Fugiat iste culpa ad facere doloribus distinctio mollitia corrupti neque eveniet ullam quod, natus quo ipsum maxime laboriosam at dolorum animi et expedita obcaecati alias totam. Velit molestiae ipsam iure explicabo dolor! Autem, excepturi laudantium facere recusandae fugiat aperiam ullam voluptatem at omnis commodi quasi, nostrum dolor accusantium laboriosam pariatur sint aspernatur mollitia, adipisci voluptates! Quis voluptatum quisquam rem! Est beatae maiores voluptatibus ipsam ducimus odio optio voluptatum aperiam libero quisquam error atque debitis fugit, saepe a eos aliquam consequuntur eum facere ratione quod accusantium fugiat, similique at. Molestias omnis dolor, repellendus delectus eos alias ad sed quidem accusantium doloremque aspernatur dolores itaque nesciunt voluptas earum nisi quibusdam, ipsam perspiciatis. Vitae sequi nesciunt officia, atque minima repellat distinctio, fugit, incidunt exercitationem commodi autem? Ab quae vero blanditiis, deleniti ipsam, dicta sunt animi nesciunt voluptatem non nihil sit. Tempora perspiciatis omnis sed aspernatur hic eaque ab necessitatibus minus totam id! Quibusdam hic sequi nesciunt illum. Ab officia dolorum eveniet perferendis sunt itaque, eaque voluptatum consequatur nulla unde alias repudiandae debitis harum vitae rem nisi odio, molestias repellendus assumenda dicta. Distinctio reiciendis minus harum porro ipsum, vel sint nemo quae sapiente doloremque a optio obcaecati aliquid amet repellat animi at consequuntur nam voluptates, culpa eaque esse corrupti dicta dignissimos. Quidem minima ipsa quos consequuntur consectetur officiis voluptatibus temporibus amet perspiciatis! Perspiciatis et, omnis eius officiis similique mollitia necessitatibus, repellat praesentium facilis maxime magnam ratione, libero ipsum sint neque architecto nihil aspernatur dolorem quasi hic. Reiciendis alias cum tempora odio quam laborum. Officia cum dolores ipsam asperiores exercitationem obcaecati dolorem itaque sunt, rerum alias consectetur. Qui aperiam voluptatum iure praesentium, reiciendis soluta facilis sed. Corrupti amet architecto facilis alias ipsam exercitationem quibusdam accusantium, similique esse nobis sint molestias distinctio laborum rem iste, obcaecati saepe nisi consequatur, iure aliquid? Eius repellendus alias, perferendis suscipit sunt iure quidem placeat architecto similique cum, nobis, accusamus reprehenderit impedit iusto laudantium sequi blanditiis in tempore ipsam laboriosam? Asperiores et consequatur excepturi aspernatur assumenda at repellendus laboriosam aliquid quo inventore tempore suscipit deserunt doloribus omnis velit tempora ratione, molestiae accusamus enim iusto optio error vero? Quae necessitatibus aut eius fuga nemo reiciendis voluptatum commodi eos deleniti dolorem debitis, delectus natus. Placeat culpa incidunt, dicta quae cum deserunt, reiciendis sint dolores vero asperiores, aspernatur aperiam iusto vitae? Atque recusandae consequatur accusamus officia deserunt? Enim, maiores sint atque ipsum culpa, itaque ea obcaecati non iste neque, labore veritatis amet praesentium totam assumenda doloribus exercitationem rem repudiandae! Maxime nostrum, similique dicta corporis aspernatur blanditiis nihil accusamus eligendi optio! Cumque excepturi quidem eaque doloribus eum, nisi minima suscipit id sunt sint labore vitae aspernatur quaerat quod consequatur quasi nulla ratione at libero ullam. Tenetur iure ut modi odit, placeat voluptatibus perferendis excepturi sequi amet eius esse vitae est eaque libero deserunt molestiae quos aliquid adipisci cupiditate. Sed, commodi sequi fugit nisi neque distinctio laboriosam debitis reiciendis necessitatibus inventore velit soluta? Quasi voluptas nulla earum exercitationem magnam animi! Animi, dolorem praesentium ipsa nulla exercitationem ex, harum voluptates hic reiciendis esse est vero iste maxime quasi impedit consequuntur accusamus nihil. Eius dolore ipsa quasi. Sed blanditiis quis unde quidem debitis obcaecati, ipsam perferendis fugit excepturi deserunt, eos ipsa illum molestias a non distinctio nemo est! Obcaecati eveniet, accusamus amet nemo doloribus perspiciatis doloremque officiis incidunt fugit asperiores optio corporis molestiae velit dolor. Sapiente dicta perferendis officiis adipisci obcaecati numquam deleniti atque, placeat perspiciatis, error unde nemo alias quidem, aperiam tempora nihil earum in magni. Doloremque sapiente incidunt illum fugiat recusandae aperiam libero quisquam voluptas eveniet similique tenetur ad minus non eius officia, voluptatum, dignissimos sit impedit dolor aspernatur quod animi praesentium quidem voluptates! Eveniet deleniti sint placeat nihil asperiores suscipit nostrum, tempore earum nesciunt aut blanditiis expedita repellat doloribus consequuntur eius voluptatum quis! Necessitatibus delectus tempore illo error, magnam explicabo minus veritatis alias laboriosam in est voluptate itaque, facilis possimus nesciunt recusandae! Laboriosam, sequi ex, tempora ipsam ut quibusdam illo natus doloremque hic nulla facilis, maiores illum molestiae et laborum quisquam! Eum ut tempore molestias beatae illum excepturi cum at architecto aut mollitia modi sit illo quod, minus animi suscipit nihil quae placeat dolores eligendi repellat possimus corrupti. Aspernatur, perferendis ab?
                                 </CardContent>
+                                </ScrollArea>
                             </Card>
                         </div>
                     
@@ -93,17 +96,16 @@ export default function ShareSingleContent() {
                                         <Card className="h-20 pt-3 flex flex-col gap-1 justify-items-start w-full pl-[13px]  ">
                                             <Label className="mt-1 h-3 pl-3 text-black text-[20px] font-bold">Link</Label>
 
-                                        <div className="w-[415px] font-sans ml-3 bg-amber-200 h-7 rounded-[5px] pl-1 text-black flex flex-row justify-between mt-2 hover:cursor-pointer  mr-1 " onClick={()=>handleCopy(shareContentData.link)}>
-                                                    {shareContentData.link}
-                                                     <LinkIcon className="w-5 h-5 mt-1 pr-1" /></div></Card> : <></>}
+                                        <div className="lg:w-[415px]  w-[80%] font-sans ml-3  h-7 rounded-[5px] pl-1 text-black flex flex-row justify-between mt-2 hover:cursor-pointer  mr-1 " onClick={()=>handleCopy(shareContentData.link)}>
+                                                    <a className="overflow-hidden ">{shareContentData.link}</a>
+                                                     </div></Card> : <></>}
 
-                <Card className="h-[30%]   text-blac border-none flex flex-col gap-3 mt-3 rounded-2xl">
+                <Card className="text-blac border-none flex flex-col gap-3 mt-5 rounded-2xl">
                     <CardHeader className="text-[20px]  font-bold pl-[25px]">Detailed Information</CardHeader>
                             <ScrollArea className="h-full w-full">
                     <CardContent className="w-full h-full pl-[25px]">
                         {/* <Card className="h-[80%] w-full"> */}
                             {/* <CardContent className="h-full"> */}
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut corporis officiis quisquam impedit atque hic earum facilis fuga unde numquam quo ad alias sunt laborum, voluptate mollitia, perspiciatis qui. Numquam a quas explicabo nihil minima neque pariatur perferendis harum repellendus omnis incidunt tenetur quaerat quidem modi optio nemo deserunt, libero ea, magnam itaque rerum? Quia necessitatibus ex sapiente minima illum alias accusantium similique natus, suscipit cum sunt recusandae blanditiis officia aliquid, dolorem asperiores. Quia doloremque modi laboriosam placeat repudiandae nobis maiores sunt cupiditate, consequatur vero minima! Molestiae iste quisquam quaerat eveniet perspiciatis, nesciunt tempore sequi recusandae ipsa? Nisi eligendi perspiciatis molestiae dicta laudantium, adipisci alias incidunt neque laboriosam corrupti placeat a, voluptatibus ipsa cumque ipsum velit! Eligendi provident omnis totam cum officiis aliquam maxime numquam, velit aliquid nostrum odio magnam facere id reprehenderit accusantium quidem recusandae mollitia dignissimos veritatis neque minima? Ipsum corrupti officia placeat, non, animi laborum distinctio iure porro perspiciatis illo exercitationem maiores possimus. Vitae repudiandae corrupti totam impedit ratione placeat ipsam? Voluptas exercitationem obcaecati dolorem aliquid, officia, nesciunt soluta consectetur veritatis quasi voluptates eligendi sapiente iusto eveniet modi officiis commodi dolorum perferendis praesentium debitis repellat quaerat. Saepe corporis delectus, eveniet quia qui animi esse ipsam obcaecati aspernatur nihil blanditiis adipisci! Repellat, autem minima. Exercitationem vero voluptatem, est accusamus officiis, commodi saepe dicta non ipsa obcaecati fuga neque temporibus omnis minima consequatur placeat eveniet mollitia voluptate aliquam atque? Iure, aut? Recusandae iusto provident animi modi consequatur quos, tempora atque laborum aut sint totam? Ullam consequatur voluptatem quas hic eveniet magnam illum unde alias blanditiis, ad odit itaque necessitatibus laboriosam fugit cum, veritatis possimus modi, commodi doloribus aperiam! Vel, quo voluptates facilis tempora pariatur fuga nesciunt aspernatur voluptatem praesentium, nisi velit qui voluptate accusamus error fugiat! Eaque aliquam reprehenderit, maxime aperiam itaque assumenda maiores velit excepturi nihil consectetur obcaecati et nemo error quis quibusdam accusamus exercitationem reiciendis eos numquam, iure voluptatem! Est expedita, cum labore quas tempore aut veniam aliquid aperiam repudiandae voluptatibus. Error, doloribus voluptate numquam quas est alias cupiditate, ea asperiores voluptatum esse perspiciatis corporis in voluptatem accusantium dicta quisquam eligendi ipsa excepturi veritatis sint sit eius vero blanditiis? Soluta eos non numquam hic esse. Quod non obcaecati porro magni alias, incidunt expedita, veritatis dolore numquam, dolor distinctio quidem optio. Veritatis accusantium, quis quo, temporibus enim aliquam minus animi cumque qui dignissimos earum error reiciendis. Sed molestiae, maxime dolorem illum sint dicta numquam perferendis dolorum quaerat culpa sunt labore nobis excepturi alias laborum a rerum repellendus quod obcaecati voluptate. Necessitatibus eius reiciendis aliquam quasi nisi ut eaque, laudantium culpa recusandae quaerat, natus odit fugit veritatis eveniet magnam officiis sit delectus temporibus ullam quis. Cumque sed, blanditiis adipisci ipsa odit reiciendis vitae obcaecati temporibus. Culpa esse commodi ex?
                             {/* </CardContent> */}
                         {/* </Card> */}
                     </CardContent>

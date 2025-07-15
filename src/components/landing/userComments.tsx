@@ -83,11 +83,11 @@ export default function UserComments() {
   const thirdommments = comments.splice(0, 3);
 
   return (
-    <section className="mt-15">
+    <section className="py-15 bg-[radial-gradient(ellipse_at_top,_#facc15,_#222222,_#000000)] text-white ">
       <div className="flex justify-center p-5 px-25">
         <div className="flex flex-col justify-center items-center ">
           <div className="bg-gradient-to-b from-gray-900 to-blue-500 text-transparent bg-clip-text">
-            <h1 className="text-5xl font-bold text-center">User Reviews</h1>
+            <h1 className="text-5xl font-bold text-center bg-gradient-to-b from-cyan-500 to-emerald-300 text-transparent bg-clip-text">User Reviews</h1>
           </div>
           <p className="text-center mt-5  text-blue-10050">
             From daily notes to team chats and AI summaries — users call it “the
@@ -129,7 +129,7 @@ function ColumnUserComments({ device, allComments }: ChildProps) {
         {allComments.map((item, index) => (
           <div
             key={index}
-            className="shadow-[3px_9px_11px_#252253] w-90 h-50 flex flex-col gap-1 items-center rounded-lg p-3"
+            className="bg-[#eeeeee55] shadow-[0_2px_12px_#546644] w-90 h-50 flex flex-col gap-1 items-center rounded-lg p-3"
           >
             <p className="text-center">{item.comment}</p>
             <div className="flex flex-row gap-3 w-full items-center justify-center">

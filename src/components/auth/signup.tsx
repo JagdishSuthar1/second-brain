@@ -14,10 +14,10 @@ export default function SignUp() {
 
 
     async function handleSignup() {
-        console.log(signUpFormData);
+        ////console.log(signUpFormData);
 
         const response = await axiosInstance.post("/api/v1/auth/signup" , signUpFormData); 
-        console.log(response.data)
+        ////console.log(response.data)
         if(response.data.success == true) {
             // here we render the toast
             toast.success(response.data.message)
