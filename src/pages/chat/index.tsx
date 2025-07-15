@@ -31,8 +31,6 @@ export default function ChatPage() {
     const { fetchGroupsAgain, setFetchFriendsAgain,
         setFetchGroupsAgain, fetchfriendsAgain, mychats,
         setMyChats, groupChats, setGroupChats,
-        mainSize,
-        setMainSize,
         userChatSelected, groupChatSelected, socket,
         setSocket,
         selectedUserMessages, setSelectedUserMessages,
