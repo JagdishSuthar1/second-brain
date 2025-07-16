@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const axiosInstance = axios.create({
-    baseURL : "http://localhost:3000"
+    baseURL : "https://second-brain-be-production-ac47.up.railway.app"
 })
 
 axiosInstance.interceptors.request.use(function(data) {
