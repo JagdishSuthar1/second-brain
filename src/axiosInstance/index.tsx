@@ -1,7 +1,8 @@
 import axios from "axios"
-
+import envfile from "dotenv"
+envfile.config()
 export const axiosInstance = axios.create({
-    baseURL : "https://second-brain-be-production-ac47.up.railway.app"
+    baseURL : process.env.REACT_APP_BACKEND_URL
 })
 
 axiosInstance.interceptors.request.use(function(data) {
