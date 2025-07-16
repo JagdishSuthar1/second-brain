@@ -292,7 +292,7 @@ export default function DashboardPage() {
                         </div>
                     </CardHeader>
                     {dashboardData ? (
-                        <ScrollArea className="w-vw  overflow-hid">
+                        <ScrollArea className="w-vw  overflow-hidden">
                             
                             <div className="px-3 flex flex-wrap justify-center items-center sm:flex-col sm:items-center ">
                                 <CardContent className="flex flex-row flex-wrap md:gap-5 sm:gap-5 gap-5 w-[90%]  items-center -safe md:items-center ">
@@ -304,7 +304,7 @@ export default function DashboardPage() {
 
                                             <Card
                                                 key={index}
-                                                className="md:w-87 sm:w-90 w-75  h-79 sm:h-80 bg-[#222222] font-sans flex flex-col gap-3 p-2 "
+                                                className="md:w-87 sm:w-90 w-77  h-79 sm:h-80 bg-[#222222] font-sans flex flex-col gap-3 p-2 "
                                             >
                                                 <CardHeader className="w-full h-15 flex flex-row justify-between rounded-1xl p-2 gap-3">
                                                     <div className="sm:w-[51%] w-[80%] pt-2 h-[97%] gap-3 flex flex-row justify-between rounded-[5px] ml-0 mr-2">
