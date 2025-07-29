@@ -5,7 +5,7 @@ import { axiosInstance } from "@/axiosInstance";
 import { toast } from "sonner";
 import { BotIcon, FileIcon } from "lucide-react";
 import { Button } from "../ui/button";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { Input } from "../ui/input";
 import CryptoJS from "crypto-js";
 const secretKey = "Jagdish-Suthar";
