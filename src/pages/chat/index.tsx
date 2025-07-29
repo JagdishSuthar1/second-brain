@@ -15,6 +15,7 @@ import Lottie from "lottie-react"
 import loader from "@/animations/loader.json"
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 const ENDPOINT = "http://localhost:3000"
 
 
@@ -31,7 +32,7 @@ export default function ChatPage() {
     const { fetchGroupsAgain, setFetchFriendsAgain,
         setFetchGroupsAgain, fetchfriendsAgain, mychats,
         setMyChats, groupChats, setGroupChats,
-        userChatSelected, groupChatSelected, socket,
+        userChatSelected, setUserChatSelected,groupChatSelected, setGroupChatSelected ,socket,
         setSocket,
         selectedUserMessages, setSelectedUserMessages,
         setSelectedGroupMessages, selectedGroupMessages
@@ -133,114 +134,169 @@ export default function ChatPage() {
 
 
 
+
     useEffect(() => {
+        //   setInterval(()=> {
+        //     router.refresh();
+        //       }, 10000);
+        // console.log("mountinr websocket")
+        
+        const dataForUserSelectedFromLocal = localStorage.getItem("USER_SELECTED");
 
-        if (auth && auth.authenticated == false) {
-            navigate("/")
+        if(dataForUserSelectedFromLocal != null) {
+            setUserChatSelected(JSON.parse(dataForUserSelectedFromLocal));
+        }
+        const dataForGroupSelectedFromLocal = localStorage.getItem("GROUP_SELECTED");
+        if(dataForGroupSelectedFromLocal != null) {
+            setUserChatSelected(JSON.parse(dataForGroupSelectedFromLocal));
         }
 
-        // console.log(auth)
-        if (auth.user != null) {
-            const socketSmaple = io(ENDPOINT);
-            setSocket(socketSmaple);
-            socketSmaple.on("connect", () => {
-                console.log("connected");
-            })
+        const socket = new WebSocket("ws://localhost:3001");
 
-            socketSmaple.emit("setup", auth.user.userId);
-            socketSmaple.on("user-connected", (userId) => {
-                console.log("user connected", userId)
-                // setConnected(userId)
-            });
+        socket.onopen = () => {
+            console.log("Connected");
 
-            socketSmaple.on("available-users", (data) => {
-                console.log("connected-users", data)
-                setConnectedUsers(data)
-            })
-
-            socketSmaple.on("user-disconnected", (userId) => {
-                console.log("user disconnected", userId)
-                // setDisconnected(userId);
-            });
+            if(userChatSelected != null) {
+                socket.send(
+                    JSON.stringify({
+                        type: "JOIN_ROOM",
+                        payload: {
+                            roomId: userChatSelected._id,
+                            userId: auth.user?.userId,
+                        },
+                    })
+                );
+            }
+            else if(groupChatSelected != null) {
+                socket.send(
+                    JSON.stringify({
+                        type: "JOIN_ROOM",
+                        payload: {
+                            roomId: groupChatSelected._id,
+                            userId: auth.user?.userId,
+                        },
+                    })
+                );
+            }
         }
+        
+
+
+        socket.onmessage = (ev) => {
+            const getDataFromWS = JSON.parse(ev.data);
+            console.log(getDataFromWS)
+            if (getDataFromWS.type == "ADDED_USER") {
+                toast.success(getDataFromWS.payload);
+
+            } else if (getDataFromWS.type == "REMOVED_USER") {
+                toast.error(getDataFromWS.payload);
+            }
+            else if (getDataFromWS.type == "COMMENT_IN_ROOM") {
+                console.log(getDataFromWS);
+
+                if(userChatSelected != null) {
+                    const newComment = {
+                        _id: getDataFromWS.payload.id,
+                        roomId: getDataFromWS.payload.spaceId,
+                        user: getDataFromWS.payload.user,
+                        latesmessage: getDataFromWS.payload.message,
+                    }
+    
+                    setMyChats(prev => (prev ? [...prev, newComment] : [newComment]));
+                }
+            }
+
+            else if (getDataFromWS.type == 'ACTIVE_USERS') {
+                console.log(getDataFromWS);
+                setConnectedUsers(prev => prev = getDataFromWS.payload)
+            }
+        }
+
+        socket.onclose = (ev) => {
+            console.log(ev.reason)
+            if (ev.reason == 'Kicked') {
+                setKicked(prev => prev = true);
+            }
+        }
+
+
+
+        setSocket(prev => prev = socket);
 
         return () => {
-            // socket?.emit("disconnect" , auth.user?.userId);
-            console.log("socket is disconnected");
-            socket?.disconnect();
+            socket.close(1000);
         }
 
-    }, [auth.user])
+    }, [])
 
 
 
+    // useEffect(() => {
 
-    useEffect(() => {
+    //     const handleMessageComing = (data: any) => {
+    //         console.log("data from user: ", data);
+    //         console.log(userChatSelected, groupChatSelected);
+    //         if (userChatSelected != null && groupChatSelected == null) {
+    //             console.log("jjh")
+    //             if (data.roomId != userChatSelected._id) {
+    //                 //here we have to add the message to the notification
+    //                 if (mychats != null) {
+    //                     for (let i = 0; i < mychats?.length; i++) {
+    //                         if (mychats[i]._id == data.roomId) {
+    //                             console.log("You Got the Notification")
+    //                             break;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //             else {
+    //                 console.log("user message ", selectedUserMessages)
+    //                 setSelectedUserMessages([...selectedUserMessages, {
+    //                     _id: data.messageId,
+    //                     myId: userChatSelected?._id,
+    //                     message: data.message,
+    //                     friendId: userChatSelected.friendId
+    //                 }]);
+    //                 // setConnected(fr)
 
-        const handleMessageComing = (data: any) => {
-            console.log("data from user: ", data);
-            console.log(userChatSelected, groupChatSelected);
-            if (userChatSelected != null && groupChatSelected == null) {
-                console.log("jjh")
-                if (data.roomId != userChatSelected._id) {
-                    //here we have to add the message to the notification
-                    if (mychats != null) {
-                        for (let i = 0; i < mychats?.length; i++) {
-                            if (mychats[i]._id == data.roomId) {
-                                console.log("You Got the Notification")
-                                break;
-                            }
-                        }
-                    }
-                }
-                else {
-                    console.log("user message ", selectedUserMessages)
-                    setSelectedUserMessages([...selectedUserMessages, {
-                        _id: data.messageId,
-                        myId: userChatSelected?._id,
-                        message: data.message,
-                        friendId: userChatSelected.friendId
-                    }]);
-                    // setConnected(fr)
-
-                    console.log("selected user mesage ", [...selectedUserMessages, {
-                        _id: data.messageId,
-                        myId: userChatSelected?._id,
-                        messsage: data.message,
-                        friendId: userChatSelected.friendId
-                    }])
-                }
-            }
-            else if (groupChatSelected != null && userChatSelected == null) {
-                if (data.roomId != groupChatSelected._id) {
-                    //here we have to add the message to the notification
-                    if (groupChats != null) {
-                        for (let i = 0; i < groupChats?.length; i++) {
-                            if (groupChats[i]._id == data.roomId) {
-                                console.log("You Got the Notification")
-                                break;
-                            }
-                        }
-                    }
-                }
-                else {
-                    setSelectedGroupMessages([...selectedGroupMessages, data.data]);
-                    console.log([...selectedGroupMessages, data])
-                }
-            }
-        }
-        if (socket != null) {
-            socket.on("new-message", handleMessageComing);
-        }
+    //                 console.log("selected user mesage ", [...selectedUserMessages, {
+    //                     _id: data.messageId,
+    //                     myId: userChatSelected?._id,
+    //                     messsage: data.message,
+    //                     friendId: userChatSelected.friendId
+    //                 }])
+    //             }
+    //         }
+    //         else if (groupChatSelected != null && userChatSelected == null) {
+    //             if (data.roomId != groupChatSelected._id) {
+    //                 //here we have to add the message to the notification
+    //                 if (groupChats != null) {
+    //                     for (let i = 0; i < groupChats?.length; i++) {
+    //                         if (groupChats[i]._id == data.roomId) {
+    //                             console.log("You Got the Notification")
+    //                             break;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //             else {
+    //                 setSelectedGroupMessages([...selectedGroupMessages, data.data]);
+    //                 console.log([...selectedGroupMessages, data])
+    //             }
+    //         }
+    //     }
+    //     if (socket != null) {
+    //         socket.on("new-message", handleMessageComing);
+    //     }
 
 
-        if (socket != null) {
-            //it is more important
-            return () => {
-                socket.off("new-message", handleMessageComing)
-            }
-        }
-    }, [userChatSelected, groupChatSelected, selectedGroupMessages, selectedUserMessages])
+    //     if (socket != null) {
+    //         //it is more important
+    //         return () => {
+    //             socket.off("new-message", handleMessageComing)
+    //         }
+    //     }
+    // }, [userChatSelected, groupChatSelected, selectedGroupMessages, selectedUserMessages])
 
 
     return (
@@ -260,6 +316,7 @@ export default function ChatPage() {
                                         <Avatar className="w-10 h-10 mt-1 bg-black text-amber-50">
                                             <AvatarFallback className="bg-black">JS</AvatarFallback>
                                         </Avatar>
+
                                         <div className="flex flex-col">
                                             <span>{userChatSelected?.friendId.username}</span>
                                             {connectedUsers && connectedUsers.findIndex((id) => id == userChatSelected?.friendId._id) != -1 ? <span className="text-[12px] flex flex-row gap-1">Status <img src="/greenDot.png" className="w-5 h-5" /> </span> : <span className="text-[12px] flex flex-row gap-1">Status <img src="/redDot.png" className="w-5 h-5" /></span>}
@@ -273,6 +330,7 @@ export default function ChatPage() {
                             <CardContent className="h-[80%] w-full flex flex-col ">
                                 <ScrollArea className="h-full w-full flex flex-col gap-6">
                                     {/* {auth.user?.userId} */}
+
                                     {userChatSelected && selectedUserMessages ? selectedUserMessages.map((item, index) => (
                                         <div key={index} className="w-full h-10 mt-3">
 
@@ -370,10 +428,6 @@ export default function ChatPage() {
                                 <Button onClick={() => handleSendingMessage()}><SendIcon /></Button>
                             </CardFooter>
                         </Card> :
-
-
-
-
 
                             <Card className="w-full h-full rounded-none">
                                 <CardContent className="w-full h-full flex flex-row justify-center items-center">

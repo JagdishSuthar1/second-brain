@@ -20,7 +20,7 @@ export default function ShareContent() {
         if(auth.user != null) {
             try {
                 const hashedUserId = encodeURIComponent(CryptoJS.AES.encrypt(auth.user.userId , secretKey).toString());
-                const shareableString = `http://localhost:5173/share/all/${hashedUserId}`
+                const shareableString = `${import.meta.env.VITE_PUBLIC_URL}/share/all/${hashedUserId}`
                 setLinkforShare(shareableString);
                 setLinkGenerated(true);
                 ////console.log(hashedUserId);

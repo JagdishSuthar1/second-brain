@@ -8,22 +8,24 @@ import { toast } from "sonner";
 import { Input } from "../ui/input";
 import CryptoJS from 'crypto-js'
 
+
 const secretKey = "Jagdish-Suthar";
 
 type ChildProps = {
     contentId : string
 }
+
+
 export default function ShareContentSingleDialog(children : ChildProps) {
     const [linkGenerated , setLinkGenerated] = useState<boolean>(false);
     const [linkforShare,setLinkforShare ] = useState<string>("");
-
     const {auth} = useContext(AuthContext)!;
 
     async function handleLinkGenerate() {
         if(auth.user != null) {
             try {
                 const hashedUserId = encodeURIComponent(CryptoJS.AES.encrypt(children.contentId , secretKey).toString());
-                const shareableString = `http://localhost:5173/share/single/${hashedUserId}`
+                const shareableString = `${import.meta.env.VITE_PUBLIC_URL}/share/single/${hashedUserId}`
                 setLinkforShare(shareableString);
                 setLinkGenerated(true);
                 ////console.log(hashedUserId);

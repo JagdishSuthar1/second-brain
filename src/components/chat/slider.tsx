@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
-import {  useContext, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { ChatContext } from "@/context/chat-context";
 import { GroupIcon, PlusIcon, SearchIcon, UserIcon, UsersIcon } from "lucide-react";
 import { Input } from "../ui/input";
@@ -17,7 +17,7 @@ import { AuthContext } from "@/context/auth-context";
 
 export default function SlideBarForChat() {
     const { currentTabforChat, mychats, groupChats, setFetchFriendsAgain, setFetchGroupsAgain, setGroupChatSelected, setUserChatSelected,
-         setSelectedUserMessages, setSelectedGroupMessages, socket } = useContext(ChatContext)!;
+        setSelectedUserMessages, setSelectedGroupMessages, socket } = useContext(ChatContext)!;
     const searchUserRef = useRef<HTMLInputElement>(null)
     const [openSearch, setOpenSearch] = useState<boolean>(false);
     const [openAddGroup, setOpenAddGroup] = useState<boolean>(false);
@@ -93,15 +93,15 @@ export default function SlideBarForChat() {
         ////console.log("user message " ,response.data);
         if (response.data.success == true) {
             ////console.log(response.data.data)
-            
+
             setSelectedUserMessages(response.data.data);
         }
     }
 
-    async function getAllGroupMessage(groupId : string) {
+    async function getAllGroupMessage(groupId: string) {
         const response = await axiosInstance.get(`/api/v1/message/get-all-group/${groupId}`);
         ////console.log("group message ",response.data.data);
-        if(response.data.success == true) {
+        if (response.data.success == true) {
             setSelectedGroupMessages(response.data.data);
         }
     }
@@ -219,17 +219,27 @@ export default function SlideBarForChat() {
                                 <TabsContent value="friends" className="text-amber-50">
 
                                     {mychats ? mychats.map((item, index) => (<SidebarMenuItem key={index} onClick={() => {
-                                        setUserChatSelected(item)
+                                        setUserChatSelected(item);
                                         setGroupChatSelected(null);
-                                        
+                                        localStorage.setItem("USER_SELECTED", JSON.stringify(item))
+
                                         ////console.log("friend Selected", item);
                                         if (socket != null) {
-                                            socket.emit("join-chat", item._id);
+                                            socket.send(
+                                                JSON.stringify({
+                                                    type: "JOIN_ROOM",
+                                                    payload: {
+                                                        roomId: item._id,
+                                                        userId: auth.user?.userId,
+                                                    },
+                                                })
+                                            );
                                         }
 
                                         if (auth.user != null) {
                                             getAllMessage(auth.user.userId, item.friendId._id)
                                         }
+
                                     }}>
                                         <SidebarMenuButton className="flex flex-col gap-5 text-amber-50">
                                             <div className="pl-5 w-full flex flex-row justify-items-start gap-5">
@@ -245,18 +255,27 @@ export default function SlideBarForChat() {
                                     {groupChats ? groupChats.map((item, index) => (<SidebarMenuItem key={index} onClick={() => {
                                         setGroupChatSelected(item);
                                         setUserChatSelected(null);
+                                        localStorage.setItem("GROUP_SELECTED", JSON.stringify(item))
 
 
                                         if (socket != null) {
-                                            socket.emit("join-chat", item._id);
+                                            socket.send(
+                                                JSON.stringify({
+                                                    type: "JOIN_ROOM",
+                                                    payload: {
+                                                        roomId: item._id,
+                                                        userId: auth.user?.userId,
+                                                    },
+                                                })
+                                            );
                                         }
-                                        
+
                                         ////console.log("Group Selected", item);
                                         getAllGroupMessage(item._id);
-                                        
+
                                     }}>
                                         <SidebarMenuButton className="flex flex-col gap-5" >
-                                              <div className="pl-5 w-full flex flex-row justify-items-start gap-5">
+                                            <div className="pl-5 w-full flex flex-row justify-items-start gap-5">
                                                 <UsersIcon />
                                                 <span className="mt-1">{item.name}</span>
                                             </div>

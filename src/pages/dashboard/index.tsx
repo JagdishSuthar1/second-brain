@@ -36,9 +36,9 @@ import ReactPlayerVideo from "@/components/reactPlayer";
 // import { Skeleton } from "@/components/ui/skeleton";
 import ShareContent from "@/components/dashboard/share";
 import { Label } from "@/components/ui/label";
-import CryptoJS from "crypto-js";
 import ShareContentSingleDialog from "@/components/dashboard/shareSingle";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import CryptoJS from "crypto-js";
 const secretKey = "Jagdish-Suthar";
 
 export default function DashboardPage() {
@@ -294,8 +294,8 @@ export default function DashboardPage() {
                     {dashboardData ? (
                         <ScrollArea className="w-vw  overflow-hidden">
                             
-                            <div className="px-3 flex flex-wrap justify-center items-center sm:flex-col sm:items-center ">
-                                <CardContent className="flex flex-row flex-wrap md:gap-5 sm:gap-5 gap-5 w-[90%]  items-center -safe md:items-center ">
+                            <div className=" flex flex-wrap justify-center items-center sm:flex-col sm:items-center ">
+                                <CardContent className="flex flex-row flex-wrap md:gap-5 sm:gap-5 gap-5 w-[90%]  items-center -safe md:items-center  not-md:justify-center">
                                     {[...dashboardData].length > 0 ? (
                                         [...dashboardData].map((item, index) => (
                                             // <Link  to={`/details/single/${item._id}`} onClick={()=> {
@@ -352,6 +352,7 @@ export default function DashboardPage() {
                                                                             secretKey
                                                                         ).toString()
                                                                     );
+                                                                    
                                                                     const singleContentString = `/details/single/${hashedUserId}`;
                                                                     navigate(singleContentString);
                                                                 }}

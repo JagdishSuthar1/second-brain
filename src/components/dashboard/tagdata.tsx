@@ -48,6 +48,7 @@ export default function TagsData() {
                     allTags: []
                 })
                 setFetchingContentForDashboard(true);
+                setTagsForTextArea("")
             }
             else {
                 toast.error(response.data.message)

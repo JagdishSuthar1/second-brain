@@ -5,8 +5,10 @@ import { axiosInstance } from "@/axiosInstance";
 import { toast } from "sonner";
 import { BotIcon, FileIcon } from "lucide-react";
 import { Button } from "../ui/button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../ui/input";
+import CryptoJS from "crypto-js";
+const secretKey = "Jagdish-Suthar";
 
 export function SearchQuery() {
     const { searchOpen, setSearchOpen, suggestedContent, setSuggestedContent, setAiSummary } = useContext(DashboardContext)!;
@@ -54,8 +56,8 @@ export function SearchQuery() {
     async function handleAISummarize() {
         ////console.log("jjj")
         ////console.log(suggestedContent);
-        
-        
+
+
         if (searchTextRef != null && searchTextRef.current != null && suggestedContent != null) {
             ////console.log(searchTextRef);
             const response = await axiosInstance.post("/api/v1/search/ai-summarize", {
@@ -79,15 +81,19 @@ export function SearchQuery() {
     return (
 
 
-        <CommandDialog open={searchOpen} onOpenChange={setSearchOpen} >
+        <CommandDialog open={searchOpen} onOpenChange={() => {
+            setSuggestedContent([])
+            setSearchOpen(e => !e)
+
+        }} >
             {/* <DialogTitle>Search In </DialogTitle> */}
             <div className="flex flex-row mt-10 mb-3 ">
-            <Input ref={searchTextRef} placeholder="Search in Your Brain" className="mt-2 ml-2 w-full"
-                onKeyDown={(event) => handleKeyDown(event)}  />
+                <Input ref={searchTextRef} placeholder="Search in Your Brain" className="mt-2 ml-2 w-full"
+                    onKeyDown={(event) => handleKeyDown(event)} />
 
-            <div className="mt-2 flex justify-end px-3">
-                <Button onClick={handleAISummarize}><BotIcon />AI Summarize</Button>
-            </div>
+                <div className="mt-2 flex justify-end px-3">
+                    <Button onClick={handleAISummarize}><BotIcon />AI Summarize</Button>
+                </div>
             </div>
             <CommandInput />
 
@@ -96,21 +102,33 @@ export function SearchQuery() {
                 {suggestedContent && suggestedContent.length > 0 ? <CommandGroup heading="Suggestions" className="flex flex-col gap-2">
                     {/* here i render the last fetched notes */}
                     {suggestedContent.map((item, index) => (
-                        <CommandItem className="flex flex-row gap-3 text-amber-50" key={index}>
-                            <FileIcon />
-                            {item.title}
-                        </CommandItem>
+                        <CommandItem className="flex flex-row gap-3 text-amber-50" key={index} onClick={() => {
+                           const hashedUserId =  CryptoJS.AES.encrypt(
+                                item._id,
+                                secretKey
+                            ).toString()
+                                    
+
+                    const singleContentString = `/details/single/${hashedUserId}`;
+                    navigate(singleContentString);
+
+
+                        }}>
+                    <FileIcon />
+                    {item.title}
+
+                </CommandItem>
                     ))}
-                </CommandGroup> :
-                    <div>
-                        {/* <span className="text-amber-50">N data found</span> */}
-                    </div>
+            </CommandGroup> :
+            <div>
+                {/* <span className="text-amber-50">N data found</span> */}
+            </div>
                 }
 
 
-            </CommandList>
+        </CommandList>
 
-        </CommandDialog>
+        </CommandDialog >
 
 
     )
