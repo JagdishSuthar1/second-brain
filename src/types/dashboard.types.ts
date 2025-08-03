@@ -53,8 +53,8 @@ export type suggestedContentType = {
 export type AiSummaryType = {
     title: string,
     summary: string,
-    detailInformation: string,
-    keyPoints: string[]
+    keyPoints: string[],
+    detailInformation: string
 }
 export type DashboardContextType = {
     dashboardData: DashboardDataType[] | null,

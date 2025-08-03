@@ -13,13 +13,10 @@ export default function ProtectedRoutes({authenticated  , element} : ProtectedRo
 
     useEffect(()=>{
         if(loading) return
-        console.log(authenticated)
         if(authenticated == false) {
-            // console.log("jjjj")
             navigate("/auth");
         }
         else if(authenticated == true && location.pathname.includes("auth")) {
-        // console.log("a")
         navigate("/")
     }
     },[loading, authenticated]) 

@@ -3,7 +3,6 @@ import Header from "@/components/landing/header";
 import Hero from "@/components/landing/hero";
 import KeyFeature from "@/components/landing/keyfeature";
 import LogoMover from "@/components/landing/logoMover";
-import UserComments from "@/components/landing/userComments";
 import WebPages from "@/components/landing/webpages";
 // import { Outlet } from "react-router-dom";
 
@@ -17,7 +16,6 @@ export default function LandingPage() {
             <LogoMover/>
             <WebPages/>
             <KeyFeature/>
-            <UserComments/>
             <Footer/>
         </div>
     )

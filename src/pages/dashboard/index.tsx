@@ -428,7 +428,7 @@ export default function DashboardPage() {
                                                     </div>
 
                                                     {item.link ? (
-                                                        <div className="h-10 mt-2">
+                                                        <div className="h-10 mt-5">
                                                             <Label className="pl-1 h-3 text-amber-50">
                                                                 Link
                                                             </Label>
@@ -445,8 +445,11 @@ export default function DashboardPage() {
                                                         <></>
                                                     )}
                                                 </ScrollArea>
-                                                <CardFooter className="bg-white h-15 rounded-[5px] pl-0 flex flex-col gap-1 justify-end w-full">
-                                                    <div className="flex flex-row gap-2 justify-start h-6  mt-1 w-full pl-10">
+                                                <ScrollArea>
+
+                                                <ScrollBar orientation="horizontal"/>
+                                                <CardFooter className="bg-white h-10 rounded-[5px] pl-0 flex flex-col gap-1 w-full">
+                                                    <div className="flex flex-row gap-2 justify-start h-6  mt-2 w-full pl-10">
                                                         {item.allTags.map((tagItem, tagIndex) => (
                                                             <span
                                                                 key={tagIndex}
@@ -455,12 +458,14 @@ export default function DashboardPage() {
                                                                 {tagItem.title}
                                                             </span>
                                                         ))}
+                                                        
                                                     </div>
-                                                    <span className="text-black text-[11px] flex flex-col justify-end">
-                                                        Added on {item.created}
-                                                    </span>
+                                                    
                                                 </CardFooter>
+                                                                                                </ScrollArea>
+
                                             </Card>
+                                            
 
                                             // </Link>
                                         ))
