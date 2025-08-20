@@ -1,54 +1,125 @@
-# React + TypeScript + Vite
+# 🧠 Second Brain
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **full-stack personal knowledge management (PKM) app** frontend built with **React, TypeScript, and Vite**. Users can create, edit, and manage notes (text, images, videos, tweets, and links), share knowledge securely, and collaborate in real-time. This frontend connects to a separate backend API for full functionality.
 
-Currently, two official plugins are available:
+## ⚠️ Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**This is the frontend repository only.** To run the complete application, you need to:
 
-## Expanding the ESLint configuration
+1. **Clone and setup the backend server** first:
+   ```bash
+   git clone https://github.com/JagdishSuthar1/second-brain-be.git
+   cd second-brain-be
+   npm install
+   # Follow backend README for setup and run on http://localhost:3000
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+2. **Then clone this frontend repository** and follow the setup below
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+3. **Make sure both servers are running**:
+   - Backend API: `http://localhost:3000`
+   - Frontend: `http://localhost:5173`
+
+## 🚀 Features
+
+* 📝 **Rich Notes**: Create, edit, and delete notes with text, images, videos, tweets, and links
+* 🔍 **Smart Search**: Tag + keyword-based search with AI-powered summarization
+* 👥 **Collaboration**: Real-time group chat system ("Superbrain") with WebSockets
+* ☁️ **Media Management**: Cloudinary integration for image uploads
+* 🔗 **Secure Sharing**: Share/import notes via unique links with authentication
+
+## 🛠️ Tech Stack
+
+* **Frontend**: [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/)
+* **Styling**: CSS Modules / Tailwind CSS
+* **State Management**: React Context API / Redux Toolkit
+* **HTTP Client**: Axios / Fetch API
+* **Build Tool**: Vite
+
+## 📂 Project Structure
+
+```
+second-brain/
+├── public/              # Static assets
+├── src/                 # Frontend source
+│   ├── components/      # Reusable UI components
+│   ├── context/         # React Context API
+│   ├── pages/           # Page components
+│   ├── hooks/           # Custom React hooks
+│   ├── services/        # API service functions
+│   ├── utils/           # Helper functions
+│   ├── types/           # TypeScript type definitions
+│   ├── App.tsx          # Root app component
+│   └── main.tsx         # Entry point
+├── .env                 # Environment variables
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙️ Setup
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Clone the repository
+git clone https://github.com/JagdishSuthar1/second-brain.git
+cd second-brain
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+# Install dependencies for both frontend & backend
+cd client && npm install
+cd ../server && npm install
 ```
+
+Create environment files for both frontend and backend:
+
+**Backend `.env` file** (in `/server` directory):
+```env
+MONGO_URI="your-mongodb-atlas-uri"
+JWT_SECRET="your-jwt-secret"
+CLOUDINARY_CLOUD_NAME="your-cloudinary-cloud-name"
+CLOUDINARY_API_KEY="your-cloudinary-api-key"
+CLOUDINARY_API_SECRET="your-cloudinary-api-secret"
+GENAI_API_KEY="your-genai-or-gemini-api-key"
+```
+
+**Frontend `.env` file** (in `/client` directory):
+```env
+VITE_PUBLIC_URL=http://localhost:5173
+VITE_BACKEND_URL=http://localhost:3000
+```
+
+## ▶️ Running Locally
+
+```bash
+npm run dev
+```
+
+* **Frontend**: http://localhost:5173
+
+**Note**: Make sure the backend server is running separately on http://localhost:3000 for full functionality.
+
+## 🚀 Deployment
+
+* **Frontend**: Vercel / Netlify
+* **Backend**: Separate repository (runs independently)
+
+## 🔗 Related Repositories
+
+* **Backend API**: [second-brain-be](https://github.com/JagdishSuthar1/second-brain-be) - **Required for full functionality**
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📧 Contact
+
+* GitHub: [@JagdishSuthar1](https://github.com/JagdishSuthar1)
+* Project Link: [https://github.com/JagdishSuthar1/second-brain](https://github.com/JagdishSuthar1/second-brain)
